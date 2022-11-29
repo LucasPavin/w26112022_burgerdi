@@ -1,1 +1,38 @@
-$body : red;
+:root {
+
+    //Section colors
+    --section-blue : #11A4AA;
+    --section-orange : #F8B025;
+    --section-red: #E03542;
+    --section-orange-fonce: #ff8000;
+    --section-purple: #BB6BD9;
+    --section-brown : #C09455;
+
+
+    // General Colors 
+    --white: #fff;
+    --black: #000;
+    --black-rgb: #{hexToRGB(#000)};
+    --gray: #797C7F;
+    --light-gray: #f9f9f9;
+    --dark-gray: #212020;
+    --gray-rgb: #{hexToRGB(#797C7F)};
+    
+    //// Theme colors
+    --main-color-01: orange;
+    --main-color-02: #3845cf;
+    --main-color-03: #faa93f;
+
+    /// General colors    
+    --red: #ec5656;
+    --green: #35F7A3;
+    --blue: #5cd0f3;
+    --action: #666;
+    --action-rgb: #{hexToRGB(#666)};
+
+    /// Admin Colors
+    --gosselink-green: #11a09a;
+
+    --body-font: 'Roboto', sans-serif;
+    --header-height: 90px;
+}

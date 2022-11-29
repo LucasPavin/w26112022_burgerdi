@@ -1,7 +1,9 @@
 
+// Import the variable 
+@import './variable/color.scss';
 
-@import url('./variable/color.scss');
+//import the layout
+@import './layout/body.scss';
 
-body {
-    background-color: $body;
-}
+// Import the template
+@import './templates/mainController.scss';
