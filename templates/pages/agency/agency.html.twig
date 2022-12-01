@@ -5,9 +5,12 @@
 {% block body %}
 
     <div class="container">
-        <h1 class="agency">Liste de l'ensemble des agences</h1>
+        <h2 class="agency">Liste de l'ensemble des agences</h2>
 
-        <a href="{{ path('agency.new') }}" class="btn">Ajouter un restaurant</a>
+        <div class="content" style="width: 100%; display: flex; justify-content:space-around; align-items:center; margin:40px 0">
+            <a href="{{ path('agency.new') }}" class="btn">Ajouter un restaurant</a>
+            <a href="{{ path('app_meal') }}" class="btn">Liste de plat</a>
+        </div>
         
         {% for message in app.flashes('success') %}
             <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">

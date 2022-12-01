@@ -3,8 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\AgencyRepository;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Contraints as Assert;
+
+
+
 
 #[ORM\Entity(repositoryClass: AgencyRepository::class)]
 // Empecher que deux restaurants est le même nom et/ou la même adresse
@@ -79,5 +86,8 @@ class Agency
         $this->website = $website;
 
         return $this;
+    }
+    public function __toString(){
+        return $this->name;
     }
 }

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Création d'un plats</h1>
+
+   {{ form_start(form) }}
+    <div class="row">
+        <div class="col">
+            {{ form_label(form.name)}}
+            {{ form_widget(form.name )}}
+            <div class="form-error">
+                {{ form_errors(form.name) }}
+            </div>
+        </div>
+        <div class="col">
+            {{ form_label(form.description)}}
+            {{ form_widget(form.description )}}
+            <div class="form-error">
+                {{ form_errors(form.description) }}
+            </div>
+        </div>
+        <div class="col">
+            {{ form_label(form.price)}}
+            {{ form_widget(form.price )}}
+            <div class="form-error">
+                {{ form_errors(form.price) }}
+            </div>
+        </div>
+        <div class="col">
+            {{ form_label(form.calorie)}}
+            {{ form_widget(form.calorie )}}
+            <div class="form-error">
+                {{ form_errors(form.calorie) }}
+            </div>
+        </div>
+        <div class="col">
+            {{ form_label(form.id_agency)}}
+            {{ form_widget(form.id_agency )}}
+            <div class="form-error">
+                {{ form_errors(form.id_agency) }}
+            </div>
+        </div>
+        <div class="col">
+            {{ form_label(form.id_category)}}
+            {{ form_widget(form.id_category )}}
+            <div class="form-error">
+                {{ form_errors(form.id_category) }}
+            </div>
+        </div>
+        
+       
+         {{ form_row(form.submit) }}
+    </div>
+    {{ form_end(form) }}
+
+</div>
+
+{% endblock %}

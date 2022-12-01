@@ -8,6 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+// use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+// use Symfony\Component\Validator\Contraints as Assert;
+
 #[ORM\Entity(repositoryClass: MealRepository::class)]
 class Meal
 {
@@ -38,13 +41,15 @@ class Meal
     #[ORM\ManyToMany(targetEntity: category::class)]
     private Collection $id_category;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createAt = null;
+    #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\NotNull()]
+    private \DateTimeImmutable $createAt;
 
     public function __construct()
     {
         $this->id_meal = new ArrayCollection();
         $this->id_category = new ArrayCollection();
+        $this->createAt = new \DateTimeImmutable;
     }
 
     public function getId(): ?int

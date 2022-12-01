@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+</style>
+
+<div class="example-wrapper">
+
+    <h2>Liste des plats</h2>
+
+    <div class="content" style="width: 100%; display: flex; justify-content:space-around; align-items:center; margin:40px 0">
+        <a href="{{ path('meal.new') }}" class="btn">Ajouter un plat</a>
+        <a href="{{ path('app_agency') }}" class="btn">Liste des agences</a>
+    </div>
+
+    {% for message in app.flashes('success') %}
+        <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
+            {{ message }}
+        </div>
+    {% endfor %}
+    
+    <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Desc</th>
+                    <th>price</th>
+                    <th>Calorie</th>
+                    <th>Crée le</th>
+                    <th>Modification</th>
+                    <th>Suppression</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for meal in meals %}
+                <tr>
+                    <td>{{ meal.id }}</td>
+                    <td>{{ meal.name }}</td>
+                    <td>{{ meal.description }}</td>
+                    <td>{{ meal.price }}</td>
+                    {# Afficher calorie mais si il n'est pas renseigné il mettre Ø #}
+                    <td>{{ meal.calorie | default("Ø") }}</td>
+                    <td>{{ meal.createAt | date("d/m/Y") }}</td>
+                    <td> 
+                        <a href="{{ path('meal.edit', {id: meal.id}) }}" class="btn">Modifer</a>
+                    </td>
+                    <td> 
+                        <a href="{{ path('meal.delete', {id: meal.id}) }}" class="btn">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+       </table>
+
+
+</div>
+{% endblock %}
