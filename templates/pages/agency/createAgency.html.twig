@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Création d'un restaurant</h1>
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col">
+            {{ form_label(form.name)}}
+            {{ form_widget(form.name )}}
+            <div class="form-error">
+                {{ form_errors(form.name) }}
+            </div>
+        </div>
+        <div class="col">
+            {{ form_label(form.address)}}
+            {{ form_widget(form.address )}}
+            <div class="form-error">
+                {{ form_errors(form.address) }}
+            </div>
+        </div>
+        <div class="col">
+            {{ form_label(form.city)}}
+            {{ form_widget(form.city )}}
+            <div class="form-error">
+                {{ form_errors(form.city) }}
+            </div>
+        </div>
+        <div class="col">
+            {{ form_label(form.website)}}
+            {{ form_widget(form.website )}}
+            <div class="form-error">
+                {{ form_errors(form.website) }}
+            </div>
+        </div>
+         {{ form_row(form.submit) }}
+    </div>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_agency') }}" class="btn">Voir la liste</a>
+</div>
+
+{% endblock %}

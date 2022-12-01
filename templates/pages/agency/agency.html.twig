@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Burgerdi - agency{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="agency">Liste de l'ensemble des agences</h1>
+
+        <a href="{{ path('agency.new') }}" class="btn">Ajouter un restaurant</a>
+        
+        {% for message in app.flashes('success') %}
+            <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+       <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Adresse</th>
+                    <th>Ville</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agency in agencies %}
+                <tr>
+                    <td>{{ agency.id }}</td>
+                    <td>{{ agency.name }}</td>
+                    <td>{{ agency.address }}</td>
+                    <td>{{ agency.city }}</td>
+                    <td>
+                        <a href="{{ path('agency.edit', {id: agency.id}) }}" class="btn">Modifier</a> 
+                    </td>
+                    <td>
+                        <a href="{{ path('agency.delete', {id: agency.id}) }}" class="btn">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+       </table>
+ 
+
+    </div> 
+
+{% endblock %}

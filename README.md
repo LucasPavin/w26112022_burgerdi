@@ -16,3 +16,7 @@ Regarder les caractéristiques (version, ..) du projet :
 ```
 symfony console about
 ```
+Creer un base de donnée avec doctrine :
+``` 
+symfony console doctrine:database:create  
+```

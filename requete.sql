@@ -10,6 +10,19 @@ CREATE TABLE `user`
     city VARCHAR(255)
 );
 
+CREATE TABLE user
+(
+    id INT AUTO_INCREMENT NOT NULL, 
+    lastname VARCHAR(255) NOT NULL, 
+    fistname VARCHAR(255) NOT NULL, 
+    email VARCHAR(255) NOT NULL,
+    number_phone INT NOT NULL, 
+    city VARCHAR(255) NOT NULL, 
+    PRIMARY KEY(id)
+) 
+DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+
+
 CREATE TABLE `meal`
 (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -35,3 +48,4 @@ CREATE TABLE category
     name VARCHAR(255)
 );
 
+INSERT INTO meal( id_agency_id, name, description, price, calorie) VALUES (2, 'CLASSIQUE JAMBON PIZZAS', 'Sauce tomate, mozzarella, jambon.', 7.99, 400)
