@@ -4,7 +4,7 @@
 <style>
 </style>
 
-<div class="example-wrapper">
+<div class="container">
 
     <h2>Liste des plats</h2>
 
@@ -38,7 +38,7 @@
                     <td>{{ meal.id }}</td>
                     <td>{{ meal.name }}</td>
                     <td>{{ meal.description }}</td>
-                    <td>{{ meal.price }}</td>
+                    <td>{{ meal.price }}€</td>
                     {# Afficher calorie mais si il n'est pas renseigné il mettre Ø #}
                     <td>{{ meal.calorie | default("Ø") }}</td>
                     <td>{{ meal.createAt | date("d/m/Y") }}</td>
