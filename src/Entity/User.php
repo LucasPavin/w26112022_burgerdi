@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -50,9 +49,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private ?string $password = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime')]
     #[Assert\NotNull()]
-    private \DateTimeImmutable $create_at;
+    private \DateTime $create_at;
 
     #[ORM\Column(type:'json')]
     #[Assert\NotNull()]
@@ -67,7 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->id_user = new ArrayCollection();
-        $this->create_at = new DateTimeImmutable();
+        $this->create_at = new \DateTime();
     }
 
     public function getId(): ?int

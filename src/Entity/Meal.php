@@ -46,13 +46,13 @@ class Meal
 
     #[ORM\Column(type: "datetime")]
     // #[Assert\NotNull()]
-    private \DateTimeImmutable $createAt;
+    private \DateTime $createAt;
 
     public function __construct()
     {
         $this->id_meal = new ArrayCollection();
         $this->id_category = new ArrayCollection();
-        $this->createAt = new \DateTimeImmutable;
+        $this->createAt = new \DateTime;
     }
 
     public function getId(): ?int
@@ -176,12 +176,12 @@ class Meal
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeImmutable
+    public function getCreateAt(): ?\DateTime
     {
         return $this->createAt;
     }
 
-    public function setCreateAt(\DateTimeImmutable $createAt): self
+    public function setCreateAt(\DateTime $createAt): self
     {
         $this->createAt = $createAt;
 
