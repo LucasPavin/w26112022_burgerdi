@@ -25,7 +25,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Nom</th>
-                    <th>Categorie(s)</th>
+                    {# <th>Categorie(s)</th> #}
                     <th>price</th>
                     <th>Calorie</th>
                     <th>Crée le</th>
@@ -38,7 +38,7 @@
                 <tr>
                     <td>{{ meal.id }}</td>
                     <td>{{ meal.name }}</td>
-                    <td>{{ meal_category }}</td>
+                    {# <td>{{ meal.description }}</td> #}
                     <td>{{ meal.price }}€</td>
                     {# Afficher calorie mais si il n'est pas renseigné il mettre Ø #}
                     <td>{{ meal.calorie | default("Ø") }}</td>

@@ -47,7 +47,7 @@ class MealType extends AbstractType
                 ],
                 'constraints' => [
                     //Valide qu'une valeur n'est pas vide ≠ de chaîne * @Vich\Uploadable
-                    new Assert\Length(['min'=> '50']),
+                    new Assert\Length(['min'=> '50'],),
                     new Assert\NotBlank()
                 ]  
             ])

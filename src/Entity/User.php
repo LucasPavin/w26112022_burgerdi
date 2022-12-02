@@ -3,15 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cette adresse e-mail.')]
+#[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -20,22 +23,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull()]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull()]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
+    #[Assert\Email()]
+    #[Assert\NotNull()]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Assert\NotNull()]
     private ?int $phone = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull()]
     private ?string $city = null;
+    
+    private string $plain_password;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
+    #[Assert\NotNull()]
     private ?string $password = null;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\NotNull()]
+    private \DateTimeImmutable $create_at;
+
+    #[ORM\Column(type:'json')]
+    #[Assert\NotNull()]
+    private array $roles = [];
 
     #[ORM\ManyToMany(targetEntity: Vote::class, mappedBy: 'id_user')]
     private Collection $id_user;
@@ -46,6 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->id_user = new ArrayCollection();
+        $this->create_at = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -112,6 +134,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getPlainPassword() 
+    {
+        return $this->plain_password;
+    }
+
+    public function setPlainPassword($plain_password) 
+    {
+        $this->plain_password = $plain_password;
+        return $this;
+    }
+
+    public function getCreateAt() 
+    {
+        return $this->create_at;
+    }
+
+    public function setCreateAt($create_at) 
+    {
+        $this->create_at = $create_at;
+        return $this;
+    }
+
 
     /**
      * The public representation of the user (e.g. a username, an email address, etc.)

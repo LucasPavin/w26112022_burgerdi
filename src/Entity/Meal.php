@@ -30,7 +30,7 @@ class Meal
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type:"text", nullable:true)]
     private ?int $calorie = null;
 
     #[ORM\ManyToOne]
@@ -44,7 +44,7 @@ class Meal
     #[JoinTable(name: 'meal_category')]
     private Collection $id_category;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: "datetime")]
     // #[Assert\NotNull()]
     private \DateTimeImmutable $createAt;
 
