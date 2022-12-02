@@ -68,13 +68,10 @@ class MealType extends AbstractType
                 'attr'=> [
                     'class' => 'form-calorie-meal'
                 ],
+                'required' => false,
                 'label' => 'Calorie',
                 'label_attr' => [
                     'class' => 'form-label-meal'
-                ],
-                'constraints' => [
-                    //Valide qu'une valeur n'est pas vide ≠ de chaîne * @Vich\Uploadable
-                    new Assert\NotBlank()
                 ]
             ])
             ->add('id_agency', EntityType::class, [
@@ -94,7 +91,8 @@ class MealType extends AbstractType
                 'label' => 'Categorie(s)',
                 'choice_label' => 'name',
                 'multiple' => true, 
-                'expanded' => true
+                'expanded' => true,
+                'by_reference' => false
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [

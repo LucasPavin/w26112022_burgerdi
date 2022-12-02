@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Contraints as Assert;
 
 #[ORM\Entity(repositoryClass: AgencyRepository::class)]
 // Empecher que deux restaurants est le même nom et/ou la même adresse
-#[UniqueEnity('name', 'address')]
+#[UniqueEntity('name', 'address')]
 class Agency
 {
     #[ORM\Id]

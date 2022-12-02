@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
-{
+{ 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -18,7 +18,7 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: meal::class)]
+    #[ORM\ManyToMany(targetEntity: Meal::class,  mappedBy:'id_category')]
     private Collection $id_meal;
 
     public function __construct()
@@ -51,18 +51,24 @@ class Category
         return $this->id_meal;
     }
 
-    public function addIdMeal(meal $idMeal): self
+    public function addIdMeal(Meal $idMeal): self
     {
         if (!$this->id_meal->contains($idMeal)) {
-            $this->id_meal->add($idMeal);
+            $this->id_meal[] = $idMeal;
+            $idMeal->addIdCategory($this);
         }
 
         return $this;
     }
 
-    public function removeIdMeal(meal $idMeal): self
+    public function removeIdMeal(Meal $idMeal): self
     {
-        $this->id_meal->removeElement($idMeal);
+        // If id_meal contains id_category then we delete it
+        if ($this->id_meal->contains($idMeal)) {
+            $this->id_meal->removeElement($idMeal);
+            $idMeal->removeIdCategory($this);
+        }
+        // $this->id_meal->removeElement($idMeal);
 
         return $this;
     }

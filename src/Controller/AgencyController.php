@@ -23,6 +23,7 @@ class AgencyController extends AbstractController
             'agencies' => $agencies
         ]);
     }
+
     /**
      * This controller show a form which create an agency
      */

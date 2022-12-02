@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
+use Symfony\Component\Validator\Contraints as Assert;
 
 // use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 // use Symfony\Component\Validator\Contraints as Assert;
@@ -33,16 +35,17 @@ class Meal
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?agency $id_agency = null;
+    private ?Agency $id_agency = null;
 
     #[ORM\ManyToMany(targetEntity: Vote::class, mappedBy: 'id_meal')]
     private Collection $id_meal;
 
-    #[ORM\ManyToMany(targetEntity: category::class)]
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy:'id_meal')]
+    #[JoinTable(name: 'meal_category')]
     private Collection $id_category;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\NotNull()]
+    // #[Assert\NotNull()]
     private \DateTimeImmutable $createAt;
 
     public function __construct()
@@ -105,12 +108,12 @@ class Meal
         return $this;
     }
 
-    public function getIdAgency(): ?agency
+    public function getIdAgency(): ?Agency
     {
         return $this->id_agency;
     }
 
-    public function setIdAgency(?agency $id_agency): self
+    public function setIdAgency(?Agency $id_agency): self
     {
         $this->id_agency = $id_agency;
 
@@ -152,19 +155,24 @@ class Meal
         return $this->id_category;
     }
 
-    public function addIdCategory(category $idCategory): self
+    public function addIdCategory(Category $idCategory): self
     {
         if (!$this->id_category->contains($idCategory)) {
-            $this->id_category->add($idCategory);
+            $this->id_category[] = $idCategory;
+            $idCategory->addIdMeal($this);
         }
 
         return $this;
     }
 
-    public function removeIdCategory(category $idCategory): self
+    public function removeIdCategory(Category $idCategory): self
     {
-        $this->id_category->removeElement($idCategory);
-
+        if (!$this->id_meal->contains($idCategory)) {
+            $this->id_category->removeElement($idCategory);
+            $idCategory->removeIdMeal($this);
+        }
+        // $this->id_category->removeElement($idCategory);
+    
         return $this;
     }
 

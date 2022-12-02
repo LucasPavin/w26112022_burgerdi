@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Hello CategoryController!{% endblock %}
+
 {% block body %}
 <style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
 <div class="container">
 
-    <h2>Liste des plats</h2>
 
     <div class="content" style="width: 100%; display: flex; justify-content:space-around; align-items:center; margin:40px 0">
-        <a href="{{ path('meal.new') }}" class="btn">Ajouter un plat</a>
+        <a href="{{ path('category.new') }}" class="btn">Ajouter une categorie</a>
         <a href="{{ path('app_agency') }}" class="btn">Liste des agences</a>
-        <a href="{{ path('app_category') }}" class="btn">Liste des categories</a>
+        <a href="{{ path('app_meal') }}" class="btn">Liste des plats</a>
     </div>
 
     {% for message in app.flashes('success') %}
@@ -19,41 +22,31 @@
             {{ message }}
         </div>
     {% endfor %}
-    
-    <table style="width: 100%; text-align:center">
+
+   <table style="width: 100%; text-align:center">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Nom</th>
-                    <th>Categorie(s)</th>
-                    <th>price</th>
-                    <th>Calorie</th>
-                    <th>Crée le</th>
                     <th>Modification</th>
                     <th>Suppression</th>
                 </tr>
             </thead>
             <tbody>
-                {% for meal in meals %}
+                {% for category in categories %}
                 <tr>
-                    <td>{{ meal.id }}</td>
-                    <td>{{ meal.name }}</td>
-                    <td>{{ meal_category }}</td>
-                    <td>{{ meal.price }}€</td>
-                    {# Afficher calorie mais si il n'est pas renseigné il mettre Ø #}
-                    <td>{{ meal.calorie | default("Ø") }}</td>
-                    <td>{{ meal.createAt | date("d/m/Y") }}</td>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
+                    
                     <td> 
-                        <a href="{{ path('meal.edit', {id: meal.id}) }}" class="btn">Modifer</a>
+                        <a href="{{ path('category.edit', {id: category.id}) }}" class="btn">Modifer</a>
                     </td>
                     <td> 
-                        <a href="{{ path('meal.delete', {id: meal.id}) }}" class="btn">Supprimer</a>
+                        <a href=" {{ path('category.delete', {id: category.id}) }} " class="btn">Supprimer</a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
        </table>
-
-
 </div>
 {% endblock %}

@@ -22,10 +22,10 @@ class Vote
     #[ORM\Column(type: Types::TEXT)]
     private ?string $comment = null;
 
-    #[ORM\ManyToMany(targetEntity: user::class, inversedBy: 'id_user')]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'id_user')]
     private Collection $id_user;
 
-    #[ORM\ManyToMany(targetEntity: meal::class, inversedBy: 'id_meal')]
+    #[ORM\ManyToMany(targetEntity: Meal::class, inversedBy: 'id_meal')]
     private Collection $id_meal;
 
     public function __construct()
@@ -71,7 +71,7 @@ class Vote
         return $this->id_user;
     }
 
-    public function addIdUser(user $idUser): self
+    public function addIdUser(User $idUser): self
     {
         if (!$this->id_user->contains($idUser)) {
             $this->id_user->add($idUser);
@@ -80,7 +80,7 @@ class Vote
         return $this;
     }
 
-    public function removeIdUser(user $idUser): self
+    public function removeIdUser(User $idUser): self
     {
         $this->id_user->removeElement($idUser);
 
@@ -95,7 +95,7 @@ class Vote
         return $this->id_meal;
     }
 
-    public function addIdMeal(meal $idMeal): self
+    public function addIdMeal(Meal $idMeal): self
     {
         if (!$this->id_meal->contains($idMeal)) {
             $this->id_meal->add($idMeal);
@@ -104,7 +104,7 @@ class Vote
         return $this;
     }
 
-    public function removeIdMeal(meal $idMeal): self
+    public function removeIdMeal(Meal $idMeal): self
     {
         $this->id_meal->removeElement($idMeal);
 
