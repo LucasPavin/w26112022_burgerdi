@@ -7,6 +7,12 @@
     <div class="container">
         <h1>Formulaire de connexion</h1>
 
+        {% for message in app.flashes('success') %}
+            <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
+                {{ message }}
+            </div>
+        {% endfor %}
+
         {% if error %}
             <div class="alert">
                 {{ error.messageKey | trans(error.messageData, 'security')}}
@@ -25,8 +31,10 @@
             </div>
 
             <button type="submit" class="btn">Se connecter</button>
+            <a href="{{ path('security.registration') }}" class="btn">S'inscrire</a>
 
         </form>
+
 
     </div>
 {% endblock %}

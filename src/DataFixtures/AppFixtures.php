@@ -52,7 +52,7 @@ class AppFixtures extends Fixture
                 ->setFirstname($this->faker->firstName)
                 ->setEmail($this->faker->email)
                 ->setCity($this->faker->city)
-                ->setPhone(8)
+                ->setPhone($this->faker->phoneNumber)
                 ->setRoles(['ROLE_USER'])
                 ->setPlainPassword('password');
             // $hasherPassword = $this->hasher->hashPassword(

@@ -34,9 +34,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(length: 255)]
     #[Assert\NotNull()]
-    private ?int $phone = null;
+    private ?string $phone = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotNull()]
@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
     #[Assert\NotNull()]
-    private ?string $password = null;
+    private ?string $password = 'password';
 
     #[ORM\Column(type: 'datetime')]
     #[Assert\NotNull()]
@@ -110,12 +110,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPhone(): ?int
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    public function setPhone(int $phone): self
+    public function setPhone(string $phone): self
     {
         $this->phone = $phone;
 
