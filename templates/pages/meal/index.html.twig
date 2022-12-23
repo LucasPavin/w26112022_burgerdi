@@ -27,7 +27,7 @@
                     <th>Nom</th>
                     {# <th>Categorie(s)</th> #}
                     <th>price</th>
-                    <th>Calorie</th>
+                    <th>Image</th>
                     <th>Crée le</th>
                     <th>Modification</th>
                     <th>Suppression</th>
@@ -43,7 +43,7 @@
                     {# <td>{{ meal.description }}</td> #}
                     <td>{{ meal.price }}€</td>
                     {# Afficher calorie mais si il n'est pas renseigné il mettre Ø #}
-                    <td>{{ meal.calorie | default("Ø") }}</td>
+                    <td><img style="max-width:100px" src="{{ vich_uploader_asset(meal, 'imageFile')}}" alt=""></td>
                     <td>{{ meal.createAt | date("d/m/Y") }}</td>
                     <td> 
                         <a href="{{ path('meal.edit', {id: meal.id}) }}" class="btn">Modifer</a>

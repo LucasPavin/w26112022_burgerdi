@@ -24,7 +24,9 @@
                 <p>Note: {{ meal.average | number_format(1, '.', ',') }}/5</p>
             {% endif %}
 
-            
+            <div>
+                <img style="max-width:100%" src="{{ vich_uploader_asset(meal, 'imageFile')}}" alt="">
+            </div>
             
             <p>{{ meal.name }}</p>
             <p>{{ meal.description }}</p>
@@ -39,7 +41,7 @@
 
 
 
-            {{ dump(meal)}}
+            {# {{ dump(meal)}} #}
             {{ meal.comment }}
 
 </div>

@@ -15,6 +15,13 @@
             </div>
         </div>
         <div class="col">
+            {{ form_label(form.imageFile)}}
+            {{ form_widget(form.imageFile )}}
+            <div class="form-error">
+                {{ form_errors(form.imageFile) }}
+            </div>
+        </div>
+        <div class="col">
             {{ form_label(form.description)}}
             {{ form_widget(form.description )}}
             <div class="form-error">

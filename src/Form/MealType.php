@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class MealType extends AbstractType
 {
@@ -36,6 +37,13 @@ class MealType extends AbstractType
                     new Assert\Length(['min'=> '2' ,'max'=> '75']),
                     new Assert\NotBlank()
                 ]  
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image du plat',
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'form-label'
+                ]
             ])
             ->add('description', TextareaType::class, [
                 'attr'=> [

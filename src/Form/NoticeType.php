@@ -18,6 +18,7 @@ class NoticeType extends AbstractType
         $builder
             ->add('rating', ChoiceType::class, [
                 'choices' => [
+                    '-' => null,
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,

@@ -9,11 +9,14 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 use Symfony\Component\Validator\Contraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 // use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 // use Symfony\Component\Validator\Contraints as Assert;
-
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: MealRepository::class)]
+#[Vich\Uploadable]
 class Meal
 {
     #[ORM\Id]
@@ -24,7 +27,13 @@ class Meal
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[Vich\UploadableField(mapping: 'meal_images', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(type: 'string', nullable:true)]
+    private ?string $imageName = null;
+
+    #[ORM\Column(type: Types::TEXT)] 
     private ?string $description = null;
 
     #[ORM\Column]
@@ -44,6 +53,9 @@ class Meal
     #[ORM\Column(type: "datetime")]
     // #[Assert\NotNull()]
     private \DateTime $createAt;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'meal', targetEntity: Notice::class, orphanRemoval: true)]
     private Collection $notices;
@@ -74,6 +86,33 @@ class Meal
 
         return $this;
     }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
 
     public function getDescription(): ?string
     {
@@ -193,6 +232,19 @@ class Meal
 
         return $this;
     }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
     public function getAverage()
     {
         $notices = $this->notices;
