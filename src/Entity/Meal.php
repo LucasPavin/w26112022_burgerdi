@@ -48,6 +48,9 @@ class Meal
     #[ORM\OneToMany(mappedBy: 'meal', targetEntity: Notice::class, orphanRemoval: true)]
     private Collection $notices;
 
+    private ?float $average = null;
+    private ?string $comment = null;
+
     public function __construct()
     {
         $this->id_category = new ArrayCollection();
@@ -140,7 +143,7 @@ class Meal
 
     public function removeIdCategory(Category $idCategory): self
     {
-        if (!$this->id_meal->contains($idCategory)) {
+        if (!$this->id_category->contains($idCategory)) {
             $this->id_category->removeElement($idCategory);
             $idCategory->removeIdMeal($this);
         }
@@ -189,5 +192,35 @@ class Meal
         }
 
         return $this;
+    }
+    public function getAverage()
+    {
+        $notices = $this->notices;
+        if ($notices->toArray() === []) {
+            $this->average = null;
+            return $this->average;
+        }
+        $total = 0;
+        foreach ($notices as $notice) {
+            $total += $notice->getRating();
+        }
+        $this->average = $total / count($notices);
+        return $this->average;
+    }
+
+    public function getComment()
+    {
+        $notices = $this->notices;
+
+        if ($notices->toArray() === []) {
+            $this->comment = null;
+            return $this->comment;
+        }
+        $total = [];
+        foreach ($notices as $notice) {
+            $total = $notice->getComment();
+        }
+        $this->comment = $total;
+        return $this->comment;
     }
 }

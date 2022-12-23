@@ -8,17 +8,39 @@
 
     <h2>Un plat</h2>
     
-    <table style="width: 100%; text-align:center">
-            
-        {% for meal in meals %}
+    {% for message in app.flashes('success') %}
+        <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
+            {{ message }}
+        </div>
+    {% endfor %}
 
+
+    <table style="width: 100%; text-align:center">
+
+            
+            {% if meal.average == null %}
+                <p>Pas de note</p>
+            {% else %}
+                <p>Note: {{ meal.average | number_format(1, '.', ',') }}/5</p>
+            {% endif %}
+
+            
+            
             <p>{{ meal.name }}</p>
             <p>{{ meal.description }}</p>
             <p>Calorie : {{ meal.calorie | default('Ø') }}kCal </p>
             <p>Prix : {{ meal.price }}€ </p>
             <p><i>{{ meal.createAt | date("d-m-Y H:i", "Europe/Paris") }}</i></p>
 
-            {{ dump(app) }}
-        {% endfor %}
+
+            <div class="notice">
+                {{ form(form)}}
+            </div>
+
+
+
+            {{ dump(meal)}}
+            {{ meal.comment }}
+
 </div>
 {% endblock %}

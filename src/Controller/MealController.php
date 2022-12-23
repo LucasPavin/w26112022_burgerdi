@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Meal;
+use App\Entity\Notice;
 use App\Form\MealType;
+use App\Form\NoticeType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\MealRepository;
+use App\Repository\NoticeRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,20 +33,56 @@ class MealController extends AbstractController
         ]);
     }
 
-    #[Route('/plats/plat/{id}', name: 'meal.see', methods:['GET'])]
-    public function meal(MealRepository $repository, Meal $meal): Response
+    #[Route('/plats/{id}', name: 'meal.see', methods:['GET', 'POST'])]
+    public function see(Meal $meal, Request $request, NoticeRepository $noticeRepository, EntityManagerInterface $manager): Response 
     {
-        $meals = $repository->findBy(array('id' => $meal));
+        $notice = new Notice();
+        $form = $this->createForm(NoticeType::class, $notice);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            // We tell him that the user is the connected user and that the meal is the one on the page
+            $notice->setUser($this->getUser())
+                ->setMeal($meal);
+            // We will come and test if the user has not already voted
+            $existing_notice = $noticeRepository->findOneBy([
+                'user' => $this->getUser(),
+                'meal' => $meal
+            ]);
+            /** If $existing_notice is null we persist the data in database
+             *  Else 
+            */
+            if(!$existing_notice){
+                $manager->persist($notice);
+            } else {
+                $existing_notice->setRating(
+                    $form->getData()->getRating()
+                );
+                $existing_notice->setComment(
+                    $form->getData()->getComment()
+                );
+            }
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre vote a bien été pris en compte, nous vous remercions.'
+            );
+            // If all is well, redirect to the same route
+            return $this->redirectToRoute('meal.see', ['id' => $meal->getId()]);
+        }
 
         return $this->render('pages/meal/meal.html.twig', [
-            'meals' => $meals
+            'meal' => $meal,
+            'form' => $form->createView()
         ]);
     }
+
     /**
      * This controller for create meal
      * 
      */
-    #[Route('/plats/publier', name:'meal.new', methods:['GET', 'POST'])]
+    #[Route('/plats/creation', name:'meal.new', methods:['GET', 'POST'])]
     public function newMeal(Request $request, EntityManagerInterface $manager): Response{
 
         $meals = new Meal();
