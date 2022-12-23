@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+</style>
+
+<div class="container">
+
+    <h2>Un plat</h2>
+    
+    <table style="width: 100%; text-align:center">
+            
+        {% for meal in meals %}
+
+            <p>{{ meal.name }}</p>
+            <p>{{ meal.description }}</p>
+            <p>Calorie : {{ meal.calorie | default('Ø') }}kCal </p>
+            <p>Prix : {{ meal.price }}€ </p>
+            <p><i>{{ meal.createAt | date("d-m-Y H:i", "Europe/Paris") }}</i></p>
+
+            {{ dump(app) }}
+        {% endfor %}
+</div>
+{% endblock %}

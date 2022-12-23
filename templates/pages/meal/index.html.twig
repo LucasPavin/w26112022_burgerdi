@@ -37,7 +37,9 @@
                 {% for meal in meals %}
                 <tr>
                     <td>{{ meal.id }}</td>
-                    <td>{{ meal.name }}</td>
+                    <td>
+                        <a href="{{ path('meal.see', {id: meal.id}) }} ">{{ meal.name }}</a>
+                    </td>
                     {# <td>{{ meal.description }}</td> #}
                     <td>{{ meal.price }}€</td>
                     {# Afficher calorie mais si il n'est pas renseigné il mettre Ø #}

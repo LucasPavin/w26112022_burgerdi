@@ -24,6 +24,10 @@ class UserController extends AbstractController
      */
     public function edit(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
     {
+
+        /**
+         * Permet de vérifier si la personne connectée n'est pas une autre personne
+         */
         if(!$this->getUser()){
             return $this->redirectToRoute('security.login');
         }
@@ -31,6 +35,7 @@ class UserController extends AbstractController
         if($this->getUser() !== $user){
             return $this->redirectToRoute('app_meal');
         }
+        // Fin de la vérification
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -67,11 +72,23 @@ class UserController extends AbstractController
     #[Route('/edition-mot-de-passe/{id}', name:'user.edit.password', methods:['GET', 'POST'])]
     public function editPassword(User $user, Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $manager ) : Response 
     {
-        $form = $this->createForm(UserPasswordType::class, $user);
+
+        if(!$this->getUser()){
+            return $this->redirectToRoute('security.login');
+        }
+
+        if($this->getUser() !== $user){
+            return $this->redirectToRoute('app_meal');
+        }
+
+        $form = $this->createForm(UserPasswordType::class);
+        
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($hasher->isPasswordValid($user, $form->getData()['plainPassword'])) {
+
+                $user->setUpdatedAt(new \DateTimeImmutable());
 
                 $user->setPlainPassword(
                     $form->getData()['newPassword']
@@ -86,6 +103,11 @@ class UserController extends AbstractController
                 $manager->flush();
 
                 return $this->redirectToRoute('app_meal');
+            } else {
+                $this->addFlash(
+                    'Warning',
+                    'Le mot de passe renseigné est incorrect.'
+                );
             }
         }
 

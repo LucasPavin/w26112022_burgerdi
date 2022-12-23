@@ -14,21 +14,11 @@ class UserPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => [    
-                    'label' => 'Mot de passe',
-                ],
-                'second_options' => [
-                    'label' => 'Confirmation du mot de passe',
-                ],
-                'invalid_message' => 'Les mots de passe ne correspondent pas.'
-            ])
-            ->add('newPassword', PasswordType::class, [
+            ->add('plainPassword', PasswordType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Nouveau mot de passe',
+                'label' => 'Mot de passe actuel',
                 'label_attr' => [
                     'class' => 'form-label'
                 ],
@@ -36,10 +26,24 @@ class UserPasswordType extends AbstractType
                     new Assert\NotBlank(),
                 ]
             ])
-            ->add("Enregistrer", SubmitType::class, [
+            ->add('newPassword',  RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options' => [    
+                    'label' => 'Nouveau mot de passe',
+                ],
+                'second_options' => [
+                    'label' => 'Confirmation du mot de passe',
+                ],
+                'invalid_message' => 'Les mots de passe ne correspondent pas.',
+                'constraints' => [
+                    new Assert\NotBlank(),
+                ]
+            ])
+            ->add("Submit", SubmitType::class, [
                 'attr' => [
                     'class' => 'btn'
-                ]
+                ],
+                'label' => 'Enregistrer'
             ]);
     }
 }

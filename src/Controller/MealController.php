@@ -10,6 +10,7 @@ use App\Repository\MealRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class MealController extends AbstractController
 {
@@ -25,6 +26,16 @@ class MealController extends AbstractController
         $meals = $repository->findAll();
 
         return $this->render('pages/meal/index.html.twig', [
+            'meals' => $meals
+        ]);
+    }
+
+    #[Route('/plats/plat/{id}', name: 'meal.see', methods:['GET'])]
+    public function meal(MealRepository $repository, Meal $meal): Response
+    {
+        $meals = $repository->findBy(array('id' => $meal));
+
+        return $this->render('pages/meal/meal.html.twig', [
             'meals' => $meals
         ]);
     }
