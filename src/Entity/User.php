@@ -6,9 +6,9 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -57,19 +57,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private array $roles = [];
 
-    #[ORM\ManyToMany(targetEntity: Vote::class, mappedBy: 'id_user')]
-    private Collection $id_user;
-
+   
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notice::class, orphanRemoval: true)]
+    private Collection $notices;
+
     public function __construct()
     {
-        $this->id_user = new ArrayCollection();
         $this->create_at = new \DateTime();
+        $this->notices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,33 +203,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Vote>
-     */
-    public function getIdUser(): Collection
-    {
-        return $this->id_user;
-    }
-
-    public function addIdUser(Vote $idUser): self
-    {
-        if (!$this->id_user->contains($idUser)) {
-            $this->id_user->add($idUser);
-            $idUser->addIdUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdUser(Vote $idUser): self
-    {
-        if ($this->id_user->removeElement($idUser)) {
-            $idUser->removeIdUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * Returning a salt is only needed if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
@@ -268,6 +242,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notice>
+     */
+    public function getNotices(): Collection
+    {
+        return $this->notices;
+    }
+
+    public function addNotice(Notice $notice): self
+    {
+        if (!$this->notices->contains($notice)) {
+            $this->notices->add($notice);
+            $notice->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotice(Notice $notice): self
+    {
+        if ($this->notices->removeElement($notice)) {
+            // set the owning side to null (unless already changed)
+            if ($notice->getUser() === $this) {
+                $notice->setUser(null);
+            }
+        }
 
         return $this;
     }

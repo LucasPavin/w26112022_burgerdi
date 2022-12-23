@@ -37,9 +37,6 @@ class Meal
     #[ORM\JoinColumn(nullable: false)]
     private ?Agency $id_agency = null;
 
-    #[ORM\ManyToMany(targetEntity: Vote::class, mappedBy: 'id_meal')]
-    private Collection $id_meal;
-
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy:'id_meal')]
     #[JoinTable(name: 'meal_category')]
     private Collection $id_category;
@@ -48,11 +45,14 @@ class Meal
     // #[Assert\NotNull()]
     private \DateTime $createAt;
 
+    #[ORM\OneToMany(mappedBy: 'meal', targetEntity: Notice::class, orphanRemoval: true)]
+    private Collection $notices;
+
     public function __construct()
     {
-        $this->id_meal = new ArrayCollection();
         $this->id_category = new ArrayCollection();
         $this->createAt = new \DateTime;
+        $this->notices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,33 +121,6 @@ class Meal
     }
 
     /**
-     * @return Collection<int, Vote>
-     */
-    public function getIdMeal(): Collection
-    {
-        return $this->id_meal;
-    }
-
-    public function addIdMeal(Vote $idMeal): self
-    {
-        if (!$this->id_meal->contains($idMeal)) {
-            $this->id_meal->add($idMeal);
-            $idMeal->addIdMeal($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdMeal(Vote $idMeal): self
-    {
-        if ($this->id_meal->removeElement($idMeal)) {
-            $idMeal->removeIdMeal($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, category>
      */
     public function getIdCategory(): Collection
@@ -184,6 +157,36 @@ class Meal
     public function setCreateAt(\DateTime $createAt): self
     {
         $this->createAt = $createAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notice>
+     */
+    public function getNotices(): Collection
+    {
+        return $this->notices;
+    }
+
+    public function addNotice(Notice $notice): self
+    {
+        if (!$this->notices->contains($notice)) {
+            $this->notices->add($notice);
+            $notice->setMeal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotice(Notice $notice): self
+    {
+        if ($this->notices->removeElement($notice)) {
+            // set the owning side to null (unless already changed)
+            if ($notice->getMeal() === $this) {
+                $notice->setMeal(null);
+            }
+        }
 
         return $this;
     }

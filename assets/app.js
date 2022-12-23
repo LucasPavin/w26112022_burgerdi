@@ -10,15 +10,3 @@ import './styles/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
-
-
-const dropdownMenu = document.querySelector('.navbar__menu-item--dropdown');
-const dropdown = document.querySelector('.navbar__dropdown');
-
-dropdownMenu.addEventListener('mouseenter', () => {
-  dropdown.style.display = 'block';
-});
-
-dropdownMenu.addEventListener('mouseleave', () => {
-  dropdown.style.display = 'none';
-});
