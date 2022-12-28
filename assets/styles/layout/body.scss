@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
 body {
     background-color: var( --white);
     color: black;
@@ -13,9 +15,14 @@ body {
     margin: auto;
 }
 
+.openss {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .btn {
     appearance: button;
-    background-color: var(--section-orange);
+    background-color: var(--primary-color);
+    color: white;
     background-image: none;
     border: 1px solid #000;
     border-radius: 4px;

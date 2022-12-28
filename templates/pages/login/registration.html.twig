@@ -5,7 +5,57 @@
     <div class="container">
         <h1>Formulaire d'inscription</h1>
 
-        {{ form(form) }}
+        {# {{ form(form) }} #}
+
+
+        <form name="registration" method="post">
+            <div class="row">
+                <div class="col">
+                    {{ form_label(form.lastname)}}
+                    {{ form_widget(form.lastname )}}
+                    <div class="form-error">
+                        {{ form_errors(form.lastname) }}
+                    </div>
+                </div>
+                <div class="col">
+                    {{ form_label(form.firstname)}}
+                    {{ form_widget(form.firstname )}}
+                    <div class="form-error">
+                        {{ form_errors(form.firstname) }}
+                    </div>
+                </div>
+                <div class="col">
+                    {{ form_label(form.email)}}
+                    {{ form_widget(form.email )}}
+                    <div class="form-error">
+                        {{ form_errors(form.email) }}
+                    </div>
+                </div>
+                <div class="col">
+                    {{ form_label(form.phone)}}
+                    {{ form_widget(form.phone )}}
+                    <div class="form-error">
+                        {{ form_errors(form.phone) }}
+                    </div>
+                </div>
+                <div class="col">
+                    {{ form_label(form.city)}}
+                    {{ form_widget(form.city )}}
+                    <div class="form-error">
+                        {{ form_errors(form.city) }}
+                    </div>
+                </div>
+                <div class="col">
+                    {{ form_widget(form.plainPassword )}}
+                    <div class="form-error">
+                        {{ form_errors(form.plainPassword) }}
+                    </div>
+                </div>
+                {{ form_row(form._token) }}
+
+                <button type="submit" id="meal_submit" name="meal[submit]" class="btn btn-submit">S'inscrire</button>
+            </div>
+        </form>
 
     </div>
 

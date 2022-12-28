@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserPasswordType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
+    
     #[Route('/edition/{id}', name: 'user.edit', methods:['GET', 'POST'])]
+    // #[Security()]
     /**
      * This controller allow us to edit user's profile
      * @param User $user
@@ -68,7 +71,7 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+    // #[Security("is_granted('ROLE_USER','ROLE_ADMIN') and user === getUser()")]
     #[Route('/edition-mot-de-passe/{id}', name:'user.edit.password', methods:['GET', 'POST'])]
     public function editPassword(User $user, Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $manager ) : Response 
     {

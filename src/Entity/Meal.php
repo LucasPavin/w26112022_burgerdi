@@ -62,6 +62,11 @@ class Meal
 
     private ?float $average = null;
     private ?string $comment = null;
+    private ?string $agency = null;
+    private ?string $address = null;
+    private ?string $website = null;
+    private ?string $city = null;
+    private ?string $categories = null;
 
     public function __construct()
     {
@@ -182,7 +187,7 @@ class Meal
 
     public function removeIdCategory(Category $idCategory): self
     {
-        if (!$this->id_category->contains($idCategory)) {
+        if ($this->id_category->contains($idCategory)) {
             $this->id_category->removeElement($idCategory);
             $idCategory->removeIdMeal($this);
         }
@@ -268,11 +273,59 @@ class Meal
             $this->comment = null;
             return $this->comment;
         }
-        $total = [];
+        $total = '';
         foreach ($notices as $notice) {
+            
             $total = $notice->getComment();
         }
         $this->comment = $total;
         return $this->comment;
+    }
+
+     /**
+      * All function for retrieve the information about the agency which create meals
+      * @return null|string
+      */
+
+    public function getAgency()
+    {
+        $this->agency = $this->id_agency->getName();
+
+        return $this->agency;
+    }
+    public function getAddress()
+    {
+        $this->address = $this->id_agency->getAddress();
+        
+        return $this->address;
+    }
+    public function getCity()
+    {
+        $this->city = $this->id_agency->getCity();
+
+        return $this->city;
+    }
+    public function getWebSite()
+    {
+        $this->website = $this->id_agency->getWebsite();
+
+        return $this->website;
+    }
+    // End of the information 
+
+
+    public function getCategories()
+    {
+        $categories = $this->id_category;
+        $names = '';
+        foreach ($categories as $category) {
+            
+            $names = $category->getName();
+
+        }
+
+        $this->categories = $names;
+
+        return $this->categories;
     }
 }

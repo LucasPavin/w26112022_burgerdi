@@ -6,6 +6,7 @@ use App\Entity\Meal;
 use App\Entity\Notice;
 use App\Form\MealType;
 use App\Form\NoticeType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\MealRepository;
@@ -14,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class MealController extends AbstractController
 {
@@ -24,12 +26,17 @@ class MealController extends AbstractController
      * @return Response
      */
     #[Route('/plats', name: 'app_meal', methods:['GET'])]
-    public function index(MealRepository $repository): Response
+    public function index(MealRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
-        $meals = $repository->findAll();
+
+        $meal = $paginator->paginate(
+            $repository->findAll(), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            6 /*limit per page*/
+        );
 
         return $this->render('pages/meal/index.html.twig', [
-            'meals' => $meals
+            'meals' => $meal
         ]);
     }
 
@@ -37,7 +44,7 @@ class MealController extends AbstractController
      * This controller for create meal
      * 
      */
-
+    #[Security("is_granted('ROLE_ADMIN')")]
     #[Route('/plats/creation', 'meal.new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
@@ -79,6 +86,7 @@ class MealController extends AbstractController
      * This controller is for edit a meal 
      * 
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
     #[Route('/plats/modification/{id}', name:'meal.edit', methods:['GET', 'POST'])]
     public function editMeal(Meal $meal, Request $request, EntityManagerInterface $manager): Response {
 
@@ -103,12 +111,14 @@ class MealController extends AbstractController
         return $this->render('pages/meal/editMeal.html.twig', [
             'form' => $form->createView()
         ]);
+        
     }
 
     /**
      * This controller is for delete a meal
      * 
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
     #[Route('/plats/suppression/{id}', name:'meal.delete', methods:['GET'])]
     public function deleteMeal(Meal $meal, Request $request, EntityManagerInterface $manager): Response {
         if(!$meal) {
@@ -172,6 +182,7 @@ class MealController extends AbstractController
 
         return $this->render('pages/meal/meal.html.twig', [
             'meal' => $meal,
+            'notice' => $notice,
             'form' => $form->createView()
         ]);
     }

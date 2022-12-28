@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class CategoryController extends AbstractController
 {
@@ -22,6 +23,7 @@ class CategoryController extends AbstractController
             'categories' => $categories,
         ]);
     }
+    #[Security("is_granted('ROLE_ADMIN')")]
     #[Route('/categories/publier', name:'category.new', methods:['GET', 'POST'])] 
     public function createCategory(EntityManagerInterface $manager, Request $request) : Response {
 
@@ -52,6 +54,7 @@ class CategoryController extends AbstractController
     /**
      * This controller is use for edit one category
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
     #[Route('/categories/modification/{id}', name:'category.edit', methods:['GET', 'POST'])]
     public function editCategory(Category $category, EntityManagerInterface $manager, Request $request) : Response {
 
@@ -81,6 +84,7 @@ class CategoryController extends AbstractController
      * This controller is used for delete one editCategory
      * 
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
     #[Route('/categories/suppression/{id}', name:'category.delete', methods:['GET', 'POST'])]
     public function deleteCategory(Category $category, EntityManagerInterface $manager, Request $request) : Response {
 

@@ -7,25 +7,26 @@
     <div class="container">
             <h2 class="agency">Liste de l'ensemble des agences</h2>
 
-            {{ form_start(form) }}
-            <div class="row">
-                <div class="col">
-                    {{ form_label(form.name)}}
-                    {{ form_widget(form.name )}}
-                    <div class="form-error">
-                        {{ form_errors(form.name) }}
+            <form name="category" method="post">
+                <div class="row">
+                    <div class="col">
+                        {{ form_label(form.name)}}
+                        {{ form_widget(form.name )}}
+                        <div class="form-error">
+                            {{ form_errors(form.name) }}
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    {{ form_label(form.id_meal)}}
-                    {{ form_widget(form.id_meal )}}
-                    <div class="form-error">
-                        {{ form_errors(form.id_meal) }}
+                    <div class="col">
+                        {{ form_label(form.id_meal)}}
+                        {{ form_widget(form.id_meal )}}
+                        <div class="form-error">
+                            {{ form_errors(form.id_meal) }}
+                        </div>
                     </div>
+                    {{ form_row(form._token) }}
+                    <button type="submit" id="category_submit" name="category[submit]" class="btn btn-submit">Modifier la catégorie</button>
                 </div>
-                {{ form_row(form.submit) }}
-            </div>
-        {{ form_end(form) }}
+            </form>
 
     </div>
 

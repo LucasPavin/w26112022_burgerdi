@@ -1,48 +1,113 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<style>
-</style>
 
 <div class="container">
 
-    <h2>Un plat</h2>
-    
     {% for message in app.flashes('success') %}
         <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
             {{ message }}
         </div>
     {% endfor %}
 
+    <a href="{{ path('meal.edit', {id: meal.id})}}" class="btn">Modifier</a>
 
-    <table style="width: 100%; text-align:center">
+    <div class="grid-meal">
 
-            
-            {% if meal.average == null %}
-                <p>Pas de note</p>
-            {% else %}
-                <p>Note: {{ meal.average | number_format(1, '.', ',') }}/5</p>
-            {% endif %}
+        <div class="grid-meal__image">
+            <img src="{{ vich_uploader_asset(meal, 'imageFile')}}" alt="">
+        </div>
 
-            <div>
-                <img style="max-width:100%" src="{{ vich_uploader_asset(meal, 'imageFile')}}" alt="">
+        <div class="grid-meal__info-agency">
+            <div class="content-info">
+
+                <div class="title-agency">
+                    <p>{{ meal.agency }}</p>
+                </div>
+
+                <div class="address-agency openss">
+                    <p>{{ meal.address }}, {{ meal.city }}</p>
+                </div>
+                <div class="webite-agency openss">
+                    <a href="{{ meal.website }}" target="_blanck">Cliquer ici pour accéder à leur site</a>
+                </div>
+
+                <div class="categories-agency openss">
+                    <p class="strong">Categorie(s) :</p>
+                    {% for category in meal.idCategory %}
+                        {% if category.name %}
+                            <span>{{ category.name }}</span>
+                        {% else %}
+                            <p>Pas de catégories</p>
+                        {% endif %}
+                    {% endfor %}
+                    {# <p>{{ meal.categories }}</p> #}
+                </div>
+                <div class="resume-notices openss">
+                    {% if meal.average == null %}
+                        <p>Pas de note</p>
+                    {% else %}
+                        <p>Note: {{ meal.average | number_format(1, '.', ',') }}/5</p>
+                    {% endif %}
+                    <p>Il y a .... commentaire(s)</p>
+                </div>
             </div>
+        </div>
+
+        <div class="grid-meal__info-meal">
+
+            <div class="title-meal">
+                <p>{{ meal.name }}</p>
+            </div>
+
+            <div class="desc-meal openss">
+                <p>{{ meal.description | nl2br }}</p>
+            </div>
+            <div class="other-info__flex openss">
+
+                <p class="price">Prix : {{ meal.price | number_format(2, '.', ',') }}€ </p>
             
-            <p>{{ meal.name }}</p>
-            <p>{{ meal.description }}</p>
-            <p>Calorie : {{ meal.calorie | default('Ø') }}kCal </p>
-            <p>Prix : {{ meal.price }}€ </p>
-            <p><i>{{ meal.createAt | date("d-m-Y H:i", "Europe/Paris") }}</i></p>
+                <p class="calorie">Calorie : {{ meal.calorie | default('Ø') }}kCal </p>     
+            </div>
+            <div class="date">
+            {{ dump(meal.createAt)}}
+                <p><i>Publié le {{ meal.createAt | date("d-m-Y", "Europe/Paris") }}</i></p>
+            </div>
 
+        </div>
 
+        <div class="grid-meal__info-comment">
             <div class="notice">
-                {{ form(form)}}
+                <form name="notice" method="post">
+                    <div class="col">
+                        {{ form_label(form.comment)}}
+                        {{ form_widget(form.comment )}}
+                        <div class="form-error">
+                            {{ form_errors(form.comment) }}
+                        </div>
+                    </div>
+                    <div class="col">
+                        {{ form_label(form.rating)}}
+                        {{ form_widget(form.rating )}}
+                        <div class="form-error">
+                            {{ form_errors(form.rating) }}
+                        </div>
+                    </div>
+
+                    {{ form_row(form._token)}}
+                    <button type="submit" id="notice_Submit" name="notice[Submit]" class="btn">Commenter</button>
+                </form>
             </div>
+            {# {{ meal.comment }} #}
 
 
+            {% for notice in meal.notices %}
+                <p>{{ notice.user.firstname }} {{ notice.user.lastname | slice(0, 3) }}***</p>
+                <p>{{ notice.comment }}</p>
+                <p>{{ notice.rating }}/5</p>
+                <p><i>Publié le {{ notice.createdAt | date("d-m-Y H:i", "Europe/Paris") }}</i></p>
+            {% endfor %}
+        </div>
+    </div>
 
-            {# {{ dump(meal)}} #}
-            {{ meal.comment }}
-
-</div>
 {% endblock %}

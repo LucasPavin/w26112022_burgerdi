@@ -6,6 +6,10 @@
 @import './layout/body.scss';
 @import './layout/font.scss';
 @import './layout/header.scss';
+@import './layout/banner.scss';
+@import './layout/pagination.scss';
 
 // Import the template
 @import './templates/mainController.scss';
+@import './templates/meal.scss';
+@import './templates/meals.scss';

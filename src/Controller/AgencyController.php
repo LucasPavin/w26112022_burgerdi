@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AgencyController extends AbstractController
 {
@@ -27,6 +28,7 @@ class AgencyController extends AbstractController
     /**
      * This controller show a form which create an agency
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
     #[Route('/agency/create', 'agency.new', methods:['GET', 'POST'])]
     public function new( Request $request, EntityManagerInterface $manager) : Response {
 
@@ -69,6 +71,7 @@ class AgencyController extends AbstractController
      * paramsConverter => https://symfony.com/bundles/SensioFrameworkExtraBundle/current/annotations/converters.html
      * 
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
     #[Route('/agency/edit/{id}', 'agency.edit', methods:['GET', 'POST'])]
     public function editAgency(Agency $agency, Request $request, EntityManagerInterface $manager) : Response 
     {
@@ -103,6 +106,7 @@ class AgencyController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    #[Security("is_granted('ROLE_ADMIN')")]
     #[Route('/agency/delete/{id}', 'agency.delete', methods:['GET'])]
     public function deleteAgency(EntityManagerInterface $manager, Agency $agency, Request $request): Response  
     {

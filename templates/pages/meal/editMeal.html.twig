@@ -5,55 +5,62 @@
 <div class="container">
     <h1>Modification d'un plats</h1>
 
-   {{ form_start(form) }}
-    <div class="row">
-        <div class="col">
-            {{ form_label(form.name)}}
-            {{ form_widget(form.name )}}
-            <div class="form-error">
-                {{ form_errors(form.name) }}
+    <form name="meal" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col">
+                {{ form_label(form.name)}}
+                {{ form_widget(form.name )}}
+                <div class="form-error">
+                    {{ form_errors(form.name) }}
+                </div>
             </div>
-        </div>
-        <div class="col">
-            {{ form_label(form.description)}}
-            {{ form_widget(form.description )}}
-            <div class="form-error">
-                {{ form_errors(form.description) }}
+            <div class="col">
+                {{ form_label(form.imageFile)}}
+                {{ form_widget(form.imageFile )}}
+                <div class="form-error">
+                    {{ form_errors(form.imageFile) }}
+                </div>
             </div>
-        </div>
-        <div class="col">
-            {{ form_label(form.price)}}
-            {{ form_widget(form.price )}}
-            <div class="form-error">
-                {{ form_errors(form.price) }}
+            <div class="col">
+                {{ form_label(form.description)}}
+                {{ form_widget(form.description )}}
+                <div class="form-error">
+                    {{ form_errors(form.description) }}
+                </div>
             </div>
-        </div>
-        <div class="col">
-            {{ form_label(form.calorie)}}
-            {{ form_widget(form.calorie )}}
-            <div class="form-error">
-                {{ form_errors(form.calorie) }}
+            <div class="col">
+                {{ form_label(form.price)}}
+                {{ form_widget(form.price )}}
+                <div class="form-error">
+                    {{ form_errors(form.price) }}
+                </div>
             </div>
-        </div>
-        <div class="col">
-            {{ form_label(form.id_agency)}}
-            {{ form_widget(form.id_agency )}}
-            <div class="form-error">
-                {{ form_errors(form.id_agency) }}
+            <div class="col">
+                {{ form_label(form.calorie)}}
+                {{ form_widget(form.calorie )}}
+                <div class="form-error">
+                    {{ form_errors(form.calorie) }}
+                </div>
             </div>
-        </div>
-        <div class="col">
-            {{ form_label(form.id_category)}}
-            {{ form_widget(form.id_category )}}
-            <div class="form-error">
-                {{ form_errors(form.id_category) }}
+            <div class="col">
+                {{ form_label(form.id_agency)}}
+                {{ form_widget(form.id_agency )}}
+                <div class="form-error">
+                    {{ form_errors(form.id_agency) }}
+                </div>
             </div>
+            <div class="col">
+                {{ form_label(form.id_category)}}
+                {{ form_widget(form.id_category )}}
+                <div class="form-error">
+                    {{ form_errors(form.id_category) }}
+                </div>
+            </div>
+            {{ form_row(form._token) }}
+            
+            <button type="submit" id="meal_submit" name="meal[submit]" class="btn btn-submit">Modifier le plat</button>
         </div>
-        
-       
-         {{ form_row(form.submit) }}
-    </div>
-    {{ form_end(form) }}
+    </form>
 
 </div>
 

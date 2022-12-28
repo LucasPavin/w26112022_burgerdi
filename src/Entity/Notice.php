@@ -26,7 +26,7 @@ class Notice
     #[Assert\LessThan(6)]
     private ?int $rating = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)] 
     private ?string $comment = null;
 
     #[ORM\ManyToOne(inversedBy: 'notices')]

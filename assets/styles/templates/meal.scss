@@ -1,0 +1,93 @@
+.grid-meal {
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "image agency" "meal meal" "comment comment";
+
+    &__image {
+        grid-area: image;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            max-width:500px; 
+            border-radius:10px
+        }
+    }
+    &__info-agency {
+        grid-area: agency;
+        .content-info {
+            .title-agency {
+                p {
+                    font-weight: 700;
+                    color: var(--primary-color);
+                    font-size: 2rem;
+                }
+            }
+            .webite-agency {
+                a {
+                    text-decoration: underline;
+                }
+            }
+            .categories-agency{
+                .strong {
+                    font-weight: 700;
+                }
+                span {
+                    &::after {
+                        content: ',';
+                    }
+                }
+            }
+            .resume-notices {
+                font-weight: 700;
+            }
+        }
+
+
+    }
+
+    &__info-meal {
+        grid-area: meal;
+        display: block;
+        max-width: 800px;
+        margin: auto;
+
+        .title-meal {
+            text-align: center;
+            font-weight: 700;
+            p {
+                color: var(--primary-color);
+                font-size: 3rem;
+            }
+        }
+        .desc-meal {
+            text-align: justify;
+        }
+        .other-info__flex{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            .price, .calorie {
+                font-size: 1.5rem;
+            }
+        }
+    }
+    &__info-comment {
+        grid-area: comment;
+        
+        .notice {
+            background-color: #AFC9B98F;
+
+            form {
+                .col {
+                    
+            display: flex;
+            flex-direction: column;   
+                }
+            }
+        }
+
+    }
+}
