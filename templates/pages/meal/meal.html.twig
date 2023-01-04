@@ -4,13 +4,8 @@
 
 <div class="container">
 
-    {% for message in app.flashes('success') %}
-        <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
-            {{ message }}
-        </div>
-    {% endfor %}
 
-    <a href="{{ path('meal.edit', {id: meal.id})}}" class="btn">Modifier</a>
+    {# <a href="{{ path('meal.edit', {id: meal.id})}}" class="btn">Modifier</a> #}
 
     <div class="grid-meal">
 
@@ -70,36 +65,41 @@
                 <p class="calorie">Calorie : {{ meal.calorie | default('Ø') }}kCal </p>     
             </div>
             <div class="date">
-            {{ dump(meal.createAt)}}
                 <p><i>Publié le {{ meal.createAt | date("d-m-Y", "Europe/Paris") }}</i></p>
             </div>
 
         </div>
 
-        <div class="grid-meal__info-comment">
+        <div class="grid-meal__info-comment openss">
             <div class="notice">
                 <form name="notice" method="post">
-                    <div class="col">
-                        {{ form_label(form.comment)}}
-                        {{ form_widget(form.comment )}}
-                        <div class="form-error">
-                            {{ form_errors(form.comment) }}
-                        </div>
-                    </div>
-                    <div class="col">
+                    <div class="col-rating">
                         {{ form_label(form.rating)}}
                         {{ form_widget(form.rating )}}
                         <div class="form-error">
                             {{ form_errors(form.rating) }}
                         </div>
                     </div>
+                    <div class="col-comment">
+                        {{ form_label(form.comment)}}
+                        {{ form_widget(form.comment )}}
+                        <div class="form-error">
+                            {{ form_errors(form.comment) }}
+                        </div>
+                    </div>
 
                     {{ form_row(form._token)}}
-                    <button type="submit" id="notice_Submit" name="notice[Submit]" class="btn">Commenter</button>
+                    <div class="submit-comment">
+                        <button type="submit" id="notice_Submit" name="notice[Submit]" class="btn">Commenter</button>
+                    </div>
                 </form>
             </div>
-            {# {{ meal.comment }} #}
 
+            {% for message in app.flashes('success') %}
+                <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #37784F; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
+                    {{ message }}
+                </div>
+            {% endfor %}
 
             {% for notice in meal.notices %}
                 <p>{{ notice.user.firstname }} {{ notice.user.lastname | slice(0, 3) }}***</p>

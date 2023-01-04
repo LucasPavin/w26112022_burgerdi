@@ -17,17 +17,17 @@ class NoticeType extends AbstractType
     {
         $builder
             ->add('rating', ChoiceType::class, [
+                'placeholder' => 'Choisissez une note',
                 'choices' => [
-                    '-' => null,
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
                     '5' => 5,
+                    '4' => 4,
+                    '3' => 3,
+                    '2' => 2,
+                    '1' => 1,
                 ],
                 'label' => 'Quel note donnez-vous ?',
                 'attr' => [
-                    'class' => 'form-select'
+                    'class' => 'form-select',
                 ],
                 'label_attr' => [
                     'class' => 'form-label-select'
@@ -35,16 +35,14 @@ class NoticeType extends AbstractType
             ])
             ->add('comment', TextareaType::class, [
                 'attr'=> [
-                    'class' => 'form-desc-meal'
+                    'class' => 'form-desc-meal',
+                    'placeholder' => 'Écrivez un commentaire au sujet de ce plat...',
                 ],
                 'label' => 'Votre commentaire',
+                'required' => false,
                 'label_attr' => [
                     'class' => 'form-label-meal'
-                ],
-                'constraints' => [
-                    //Valide qu'une valeur n'est pas vide ≠ de chaîne * @Vich\Uploadable
-                    new Assert\NotBlank()
-                ]  
+                ], 
             ])
             ->add('Submit', SubmitType::class)
         ;
