@@ -17,7 +17,9 @@
     }
 
     &__info-agency {
-        grid-area: agency;
+        grid-area: agency;    
+        display: flex;
+        align-items: center;
 
         .content-info {
             .title-agency {
@@ -129,6 +131,13 @@
                         box-shadow: 2px 2px 8px #999;
                         background-color: var(--second-color);
                         border: none;
+                        &:focus
+                        {
+                            border: none;
+                            box-shadow: 0;
+                            outline-offset: 0px;
+                            outline: none;
+                        }
                     }
                 }
 

@@ -61,12 +61,10 @@ class Meal
     private Collection $notices;
 
     private ?float $average = null;
-    private ?string $comment = null;
     private ?string $agency = null;
     private ?string $address = null;
     private ?string $website = null;
     private ?string $city = null;
-    private ?string $categories = null;
 
     public function __construct()
     {
@@ -265,23 +263,6 @@ class Meal
         return $this->average;
     }
 
-    public function getComment()
-    {
-        $notices = $this->notices;
-
-        if ($notices->toArray() === []) {
-            $this->comment = null;
-            return $this->comment;
-        }
-        $total = '';
-        foreach ($notices as $notice) {
-            
-            $total = $notice->getComment();
-        }
-        $this->comment = $total;
-        return $this->comment;
-    }
-
      /**
       * All function for retrieve the information about the agency which create meals
       * @return null|string
@@ -313,19 +294,4 @@ class Meal
     }
     // End of the information 
 
-
-    public function getCategories()
-    {
-        $categories = $this->id_category;
-        $names = '';
-        foreach ($categories as $category) {
-            
-            $names = $category->getName();
-
-        }
-
-        $this->categories = $names;
-
-        return $this->categories;
-    }
 }

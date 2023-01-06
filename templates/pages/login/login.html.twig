@@ -1,40 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LoginController!{% endblock %}
+{% block title %}
+    Burgerdi - Se connecter
+{% endblock %}
 
 {% block body %}
 
-    <div class="container">
-        <h1>Formulaire de connexion</h1>
+<div class="login-container">
+    <div class="container login-block">
+        <div class="connect">
+            <h2>Connexion</h2>
 
-        {% for message in app.flashes('success') %}
-            <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
-                {{ message }}
-            </div>
-        {% endfor %}
+            {% for message in app.flashes('success') %}
+                <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
+                    {{ message }}
+                </div>
+            {% endfor %}
 
-        {% if error %}
-            <div class="alert">
-                {{ error.messageKey | trans(error.messageData, 'security')}}
-            </div>
-        {% endif %}
+            {% if error %}
+                <div class="alert">
+                    {{ error.messageKey | trans(error.messageData, 'security')}}
+                </div>
+            {% endif %}
 
-        <form action="{{ path('security.login') }}" method="post">
+            <form action="{{ path('security.login') }}" method="post">
 
-            <div class="col-form-login">
-                <label for="username">Adresse e-mail</label>
-                <input type="email" class="" id="username" placeholder="exemple@burgerdi.fr" name='_username' value="{{ last_username }}">
-            </div>
-            <div class="col-form-login">
-                <label for="password">Mot de passe</label>
-                <input type="password" class="" id="password" placeholder="Mot de passe" name='_password'>
-            </div>
+                <div class="col-form-login">
+                    <label for="username">Adresse e-mail</label>
+                    <input type="email" class="" id="username" placeholder="exemple@burgerdi.fr" name='_username' value="{{ last_username }}">
+                </div>
+                <div class="col-form-login">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="" id="password" placeholder="Mot de passe" name='_password'>
+                </div>
 
-            <button type="submit" class="btn">Se connecter</button>
-            <a href="{{ path('security.registration') }}" class="btn">S'inscrire</a>
+                <button type="submit" class="btn">Se connecter</button>
+                <a href="{{ path('security.registration') }}" class="btn">S'inscrire</a>
 
-        </form>
-
-
+            </form>
+        </div>
+        <div class="registration-block">
+        aaaa
+        </div>
     </div>
+</div>
+
+
 {% endblock %}

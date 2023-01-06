@@ -1,0 +1,19 @@
+
+<form class="search-form" name="search" method="post">
+
+    <div class="content-search">    
+        {{ form_errors(form.query) }}
+        <div class="content-search__input">
+            {{ form_widget(form.query)}}
+        </div>
+
+        <button class="" type="submit" id="button-addon2">
+            <img src="{{ asset('images/static/icon-zoom.svg') }}" alt="">
+        </button>
+    </div>
+
+</form>
+
+
+
+

@@ -57,11 +57,17 @@ class MealRepository extends ServiceEntityRepository
             ->setParameter('chaine', '%'.$searchData->query.'%');
 
         if(!empty($searchData->query)) {
+            //Search on meals title
         $data = $data
                     ->andWhere("r.name LIKE :chaine")
+                    // The names of the agencies are retrieved
+                    ->join('r.id_agency', 'a')
+                    ->orWhere("a.name LIKE :chaine")
+                    // The names of the categories are retrieved
+                    ->join('r.id_category', 'c')
+                    ->orWhere("c.name LIKE :chaine")
                     ->setParameter('chaine', "%{$searchData->query }%" );
         }
-
         $data = $data
                     ->getQuery()
                     ->getResult();

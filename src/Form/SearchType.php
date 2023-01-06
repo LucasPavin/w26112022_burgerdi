@@ -15,8 +15,11 @@ class SearchType extends AbstractType
         $builder
             ->add('query', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'Rechercher'
-                ]
+                    'placeholder' => 'Rechercher...'
+                ],
+                'empty_data' => '',
+                'required' => false
+
             ]);
     }
     public function configureOptions(OptionsResolver $resolver)

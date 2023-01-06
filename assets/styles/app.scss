@@ -9,6 +9,13 @@
 @import './layout/banner.scss';
 @import './layout/pagination.scss';
 @import './layout/footer.scss';
+@import './layout/search.scss';
+
+// Import the components style
+@import './components/_message_flash.scss';
+
+// Import the page's style 
+@import './pages/login.scss';
 
 // Import the template
 @import './templates/mainController.scss';

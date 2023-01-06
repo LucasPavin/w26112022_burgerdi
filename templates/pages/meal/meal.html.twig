@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Burgerdi - {{ meal.name }}
+{% endblock %}
+
+
 {% block body %}
 
 <div class="container">
@@ -44,7 +49,9 @@
                     {% else %}
                         <p>Note: {{ meal.average | number_format(1, '.', ',') }}/5</p>
                     {% endif %}
-                    <p>Il y a .... commentaire(s)</p>
+
+                    <p>Il y a .. commentaire(s)</p>
+
                 </div>
             </div>
         </div>

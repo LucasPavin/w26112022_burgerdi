@@ -35,7 +35,7 @@ class MealController extends AbstractController
         $meal = $paginator->paginate(
             $repository->findAll(), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            6 /*limit per page*/
+            12 /*limit per page*/
         );
 
         $searchData = new SearchData();
@@ -156,7 +156,7 @@ class MealController extends AbstractController
 
 
         $this->addFlash(
-            'success',
+            'delete',
             'Le plat a été supprimé avec succès !'
          );
  

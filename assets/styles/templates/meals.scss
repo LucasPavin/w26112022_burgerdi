@@ -14,7 +14,7 @@
         border-radius: 5px;
         box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
         overflow: hidden;
-        background-color: var(--primary-color);
+        background-color: var(--second-color);
         margin: 20px;
         position: relative;
       
@@ -28,7 +28,7 @@
           display: flex;
           flex-direction: column;
           padding: 20px;
-          color: white;
+          color: black;
           bottom: 0;
           max-width: 100%;
       
@@ -36,7 +36,7 @@
             font-size: 1.1rem;
             font-weight: bold;
             margin-bottom: 10px;
-            color: white;
+            color: black;
           }
       
           &__location {
@@ -50,7 +50,7 @@
             align-items: center;
             width: 100%;
             margin-bottom: 10px;
-            color: white;
+            color: black;
             
       
             &__date {
@@ -63,4 +63,34 @@
           }
         }
     }   
+}
+
+.navigation {
+  display: flex;
+
+  span {
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: var(--second-color);
+    a {
+      color: black;
+    }
+    &.current {
+      background-color: var(--primary-color);
+      color: white;
+      border: 1px solid #4CAF50;
+    }
+    &:hover:not(.current) {
+      background-color: #ddd;
+    }
+    &.last {
+      display: none;
+    }
+    &.first {
+      display: none;
+    }
+  }
 }

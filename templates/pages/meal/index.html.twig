@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Burgerdi - Tous les plats
+{% endblock %}
+
 {% block body %}
 <style>
 </style>
@@ -10,21 +14,18 @@
 
 <div class="container">
 
-     {% include "components/search.html.twig" with {
+     {% include "components/_search.html.twig" with {
               form: form
         } only %}
-
-    {% for message in app.flashes('success') %}
-        <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
-            {{ message }}
-        </div>
-    {% endfor %}
 
     {% if meals.getTotalItemCount > 0 %}
 
         <div class="count">
             <p><span class="bold">{{ meals.getTotalItemCount }} résultat(s)</span> de plat(s) </p>
         </div>
+
+        {% include "components/_message_flash.html.twig" %}
+
         <div class="all__cards">
             {% for meal in meals %}
                 <div class="card">

@@ -1,0 +1,22 @@
+
+
+.flash-notice {    
+    width: 1000px;
+    margin: auto;
+    padding: 1rem 0; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    border-radius: 10px; 
+    margin-bottom: 20px;
+    font-family: "Georgia", serif;
+}
+
+.success {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.delete {
+    background-color: var(--section-red);
+}

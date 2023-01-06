@@ -1,0 +1,22 @@
+.login-container {
+    background-color: var(--second-color);
+    display: flex;
+    align-items: center;
+
+    .login-block {
+        width: 800px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        .connect {
+            background-color: white;
+            width: 50%;
+            height: 500px;
+        }
+        .registration-block {
+            background-color: var(--primary-color);
+            width: 50%;
+            height: 500px;
+        }
+    }
+}
