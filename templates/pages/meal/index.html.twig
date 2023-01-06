@@ -10,7 +10,9 @@
 
 <div class="container">
 
-
+     {% include "components/search.html.twig" with {
+              form: form
+        } only %}
 
     {% for message in app.flashes('success') %}
         <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
@@ -18,39 +20,47 @@
         </div>
     {% endfor %}
 
-    <div class="count">
-        <p><span class="bold">{{ meals.getTotalItemCount }} résultat(s)</span> de plat(s) </p>
-    </div>
+    {% if meals.getTotalItemCount > 0 %}
 
-    <div class="all__cards">
-        {% for meal in meals %}
-            <div class="card">
-                <a href="{{ path('meal.see', {id: meal.id}) }} ">
-                    {% if vich_uploader_asset(meal, 'imageFile') %}
-                        <img src="{{ vich_uploader_asset(meal, 'imageFile')}}" alt="Image du plat" class="card__image">
-                    {% else %}
-                        <img src="{{ asset('images/static/no-picture.jpg') }}" alt="No picture" class="card__image">
-                    {% endif %}
-                    <div class="card__description">
-                        <div class="card__description__title">{{ meal.name }}</div>
-                        <div class="card__description__location">{{ meal.agency }}</div>
-                        <div class="card__description__desc">{{ meal.description | slice(0, 150) ~ '...' }}</div>                   
-                        <div class="card__description__date-note">
-                            <div class="card__description__date-note__date">{{ meal.createAt | date("d/m/Y", timezone="Europe/Paris") }}</div>
-                            <div class="card__description__date-note__note">
-                                {% if meal.average %}
-                                    <p>Note: {{ meal.average }}/5</p>
-                                {% else %}
-                                    <p>Ø</p>
-                                {% endif %}
+        <div class="count">
+            <p><span class="bold">{{ meals.getTotalItemCount }} résultat(s)</span> de plat(s) </p>
+        </div>
+        <div class="all__cards">
+            {% for meal in meals %}
+                <div class="card">
+                    <a href="{{ path('meal.see', {id: meal.id}) }} ">
+                        {% if vich_uploader_asset(meal, 'imageFile') %}
+                            <img src="{{ vich_uploader_asset(meal, 'imageFile')}}" alt="Image du plat" class="card__image">
+                        {% else %}
+                            <img src="{{ asset('images/static/no-picture.jpg') }}" alt="No picture" class="card__image">
+                        {% endif %}
+                        <div class="card__description">
+                            <div class="card__description__title">{{ meal.name }}</div>
+                            <div class="card__description__location">{{ meal.agency }}</div>
+                            <div class="card__description__desc">{{ meal.description | slice(0, 150) ~ '...' }}</div>                   
+                            <div class="card__description__date-note">
+                                <div class="card__description__date-note__date">{{ meal.createAt | date("d/m/Y", timezone="Europe/Paris") }}</div>
+                                <div class="card__description__date-note__note">
+                                    {% if meal.average %}
+                                        <p>Note: {{ meal.average }}/5</p>
+                                    {% else %}
+                                        <p>Ø</p>
+                                    {% endif %}
+                                </div>
                             </div>
+                            
                         </div>
-                        
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
-    </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+
+        <div class="count">
+            <p><span class="bold">{{ meals.getTotalItemCount }} résultat(s)</span> correspondant à votre demande </p>
+        </div>
+
+    {% endif %}
 
     <div class="navigation">
         {{ knp_pagination_render(meals) }}

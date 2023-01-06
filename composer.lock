@@ -1678,16 +1678,16 @@
         },
         {
             "name": "knplabs/knp-paginator-bundle",
-            "version": "v6.0.0",
+            "version": "v6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "2f9f36654de838556987d0e90eabe48b5e49e136"
+                "reference": "92d676e7e68f8e99587d78e7f30d8217de6be18b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/2f9f36654de838556987d0e90eabe48b5e49e136",
-                "reference": "2f9f36654de838556987d0e90eabe48b5e49e136",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/92d676e7e68f8e99587d78e7f30d8217de6be18b",
+                "reference": "92d676e7e68f8e99587d78e7f30d8217de6be18b",
                 "shasum": ""
             },
             "require": {
@@ -1746,9 +1746,9 @@
             ],
             "support": {
                 "issues": "https://github.com/KnpLabs/KnpPaginatorBundle/issues",
-                "source": "https://github.com/KnpLabs/KnpPaginatorBundle/tree/v6.0.0"
+                "source": "https://github.com/KnpLabs/KnpPaginatorBundle/tree/v6.0.1"
             },
-            "time": "2022-11-01T15:37:33+00:00"
+            "time": "2022-12-26T18:09:52+00:00"
         },
         {
             "name": "laminas/laminas-code",

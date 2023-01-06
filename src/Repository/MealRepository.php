@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Meal;
+use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  * @extends ServiceEntityRepository<Meal>
@@ -16,7 +19,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MealRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginationInterface)
     {
         parent::__construct($registry, Meal::class);
     }
@@ -37,6 +40,35 @@ class MealRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+     /**
+      * Get published meal thanks to search Data value
+      * @param SearchData $searchData
+      * @return PaginationInterface
+      */
+
+    public function findBySearch(SearchData $searchData)
+    {
+        $data = $this->createQueryBuilder('r')
+            ->select('r')
+            ->where('r.name LIKE :chaine')
+            ->orWhere('r.description LIKE :chaine')
+            ->setParameter('chaine', '%'.$searchData->query.'%');
+
+        if(!empty($searchData->query)) {
+        $data = $data
+                    ->andWhere("r.name LIKE :chaine")
+                    ->setParameter('chaine', "%{$searchData->query }%" );
+        }
+
+        $data = $data
+                    ->getQuery()
+                    ->getResult();
+
+        $posts = $this->paginationInterface->paginate($data, $searchData->page, 12);
+        
+        return $posts;
     }
 
 //    /**

@@ -1,16 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/georgia');
 body {
     background-color: var( --white);
     color: black;
     font-size: 1rem;
-    font-family: 'Josefin Sans', sans-serif;
+    // font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Georgia', sans-serif;
     margin: 0;
     padding: 0;
 }
 .container {
-
+    min-height: 100vh;
     max-width: 1200px;
     margin: auto;
 }
@@ -60,10 +62,14 @@ body {
     @media (min-width: 768px) {
         padding: 12px 50px;
     }
+    a {
+        text-decoration: none;
+        color: black;
+    }
 }
+
 a {
     text-decoration: none;
-    color: black;
 }
 
 .col-form-login {

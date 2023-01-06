@@ -6,6 +6,8 @@ use App\Entity\Meal;
 use App\Entity\Notice;
 use App\Form\MealType;
 use App\Form\NoticeType;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +16,7 @@ use App\Repository\NoticeRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\Post\PostRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
@@ -25,7 +28,7 @@ class MealController extends AbstractController
      * @param MealRepository $repository
      * @return Response
      */
-    #[Route('/plats', name: 'app_meal', methods:['GET'])]
+    #[Route('/plats', name: 'app_meal', methods:['GET', 'POST'])]
     public function index(MealRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
 
@@ -35,7 +38,26 @@ class MealController extends AbstractController
             6 /*limit per page*/
         );
 
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class, $searchData);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) 
+        {
+            //De mettre la request query à getInt
+            $searchData->page = $request->query->getInt('page', 1);
+
+            $mealsSearch = $repository->findBySearch($searchData);
+
+            return $this->render("pages/meal/index.html.twig", [
+                "form" => $form->createView(),
+                "meals" => $mealsSearch
+            ] );
+        }
+
         return $this->render('pages/meal/index.html.twig', [
+            'form' => $form->createView(),
             'meals' => $meal
         ]);
     }

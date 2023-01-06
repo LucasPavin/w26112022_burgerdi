@@ -91,12 +91,15 @@
         grid-area: section-comment;
 
         .notice {
-            margin-top: 80px;
+            margin: 5rem 0;
+
 
             form {
                 display: grid;
                 grid-template-columns: 3fr;
-                grid-template-areas: "rating"
+                grid-template-areas: 
+                    "title"
+                    "rating"
                     "comment"
                     "send";
 
@@ -106,6 +109,10 @@
                 margin: auto;
                 background-color: var(--second-color);
                 border-radius: 10px;
+
+                h2 {
+                    grid-area: title;
+                }
 
                 .col-comment {
                     margin: 15px 0;

@@ -1,0 +1,18 @@
+footer {
+    background-color: #161616;
+    color: white;
+    padding: 2rem ;
+    .footer {
+        max-width: 800px;
+        margin: auto;
+        .copyright{
+            width: fit-content;
+            margin: auto;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        a {
+            color: white;
+        }
+    }
+}
