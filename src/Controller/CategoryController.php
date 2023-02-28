@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class CategoryController extends AbstractController
 {
+    #[Security("is_granted('ROLE_ADMIN')")]
     #[Route('/categories', name: 'app_category')]
     public function index( CategoryRepository $repository ): Response
     {
@@ -46,7 +47,6 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('app_category');
 
         }
-
         return $this->render('pages/category/createCategory.html.twig', [
             'form' => $form->createView()
         ]);

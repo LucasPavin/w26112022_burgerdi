@@ -59,7 +59,6 @@ class Notice
     public function setRating(int $rating): self
     {
         $this->rating = $rating;
-
         return $this;
     }
 

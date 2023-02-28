@@ -16,12 +16,10 @@ class LoginController extends AbstractController
     #[Route('/connexion', name: 'security.login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-
         return $this->render('pages/login/login.html.twig', [
             'controller_name' => 'LoginController',
             // Allows you to keep the last address in mind
             'last_username' => $authenticationUtils->getLastUsername(),
-
             'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
     }
@@ -43,15 +41,12 @@ class LoginController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-
             $this->addFlash(
                 'success',
                 'Votre compte a bien été créé.'
             );
-
             $manager->persist($user);
             $manager->flush();
-
             return $this->redirectToRoute('security.login');
         }
 

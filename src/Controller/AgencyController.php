@@ -15,11 +15,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AgencyController extends AbstractController
 {
-    #[Route('/agency', name: 'app_agency')]
+    #[Security("is_granted('ROLE_ADMIN')")]
+    #[Route('/agences', name: 'app_agency')]
     public function index(AgencyRepository $repository): Response
     {
         $agencies = $repository->findAll();
-    
+
         return $this->render('pages/agency/agency.html.twig', [
             'agencies' => $agencies
         ]);
@@ -58,7 +59,6 @@ class AgencyController extends AbstractController
                 'L\'insertion a échoué !'
             );
         }
- 
         return $this->render('pages/agency/createAgency.html.twig', [
             'form' => $form->createView()
         ]);
@@ -67,7 +67,8 @@ class AgencyController extends AbstractController
     /**
      * This controller show a form which edit an agency
      * 
-     * You can use 2 methods : The first you pass in params of the function (AgencyRepository $repository, int $id) the repository and a id, or you can paramsConverter just pass in params this (Agency $agency)
+     * You can use 2 methods : The first you pass in params of the function (AgencyRepository $repository, int $id) 
+     * the repository and a id, or you can paramsConverter just pass in params this (Agency $agency)
      * paramsConverter => https://symfony.com/bundles/SensioFrameworkExtraBundle/current/annotations/converters.html
      * 
      */
@@ -77,7 +78,6 @@ class AgencyController extends AbstractController
     {
         // $agency = $repository->findOneBy(['id' => $id]);
         $form = $this->createForm(AgencyType::class, $agency);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) { 
@@ -92,16 +92,13 @@ class AgencyController extends AbstractController
                 'success',
                 'Le restaurant a bien été modifié avec succès !'
             );
-
             return $this->redirectToRoute('app_agency');
-
         } else {
             $this->addFlash(
                 'alert',
                 'La modification a échoué !'
             );
         }
-
         return $this->render('pages/agency/editAgency.html.twig', [
             'form' => $form->createView()
         ]);
@@ -124,7 +121,6 @@ class AgencyController extends AbstractController
            'success',
            'Le restaurant a été supprimé avec succès !'
         );
-
         return $this->redirectToRoute('app_agency');
     }
 }

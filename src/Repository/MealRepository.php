@@ -58,7 +58,7 @@ class MealRepository extends ServiceEntityRepository
 
         if(!empty($searchData->query)) {
             //Search on meals title
-        $data = $data
+            $data = $data
                     ->andWhere("r.name LIKE :chaine")
                     // The names of the agencies are retrieved
                     ->join('r.id_agency', 'a')

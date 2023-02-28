@@ -24,7 +24,7 @@ class Meal
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $name = null;
 
     #[Vich\UploadableField(mapping: 'meal_images', fileNameProperty: 'imageName')]
@@ -39,7 +39,7 @@ class Meal
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\Column(type:"text", nullable:true)]
+    #[ORM\Column(nullable:true)]
     private ?int $calorie = null;
 
     #[ORM\ManyToOne]

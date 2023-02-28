@@ -21,24 +21,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 46)]
     #[Assert\NotNull()]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 46)]
     #[Assert\NotNull()]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 62, unique: true)]
     #[Assert\Email()]
     #[Assert\NotNull()]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 25)]
     #[Assert\NotNull()]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 35)]
     #[Assert\NotNull()]
     private ?string $city = null;
     

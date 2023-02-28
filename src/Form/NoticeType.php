@@ -44,6 +44,7 @@ class NoticeType extends AbstractType
                     'class' => 'form-label-meal'
                 ], 
             ])
+            
             ->add('Submit', SubmitType::class)
         ;
     }

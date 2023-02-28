@@ -23,13 +23,13 @@ class Agency
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 62)]
     private ?string $address = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 35)]
     private ?string $city = null;
 
     #[ORM\Column(length: 255)]

@@ -24,20 +24,24 @@ class MealController extends AbstractController
 {
     /**
      * This controller display all meal
-     *  
      * @param MealRepository $repository
      * @return Response
      */
     #[Route('/plats', name: 'app_meal', methods:['GET', 'POST'])]
-    public function index(MealRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    public function index(
+        MealRepository $repository, 
+        PaginatorInterface $paginator, 
+        Request $request): Response
     {
-
+        /**
+         * Setting up the pagination system
+         */
         $meal = $paginator->paginate(
-            $repository->findAll(), /* query NOT result */
+            $repository->findAll(), /* query all meals result */
             $request->query->getInt('page', 1), /*page number*/
             12 /*limit per page*/
         );
-
+ 
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class, $searchData);
 
@@ -55,7 +59,6 @@ class MealController extends AbstractController
                 "meals" => $mealsSearch
             ] );
         }
-
         return $this->render('pages/meal/index.html.twig', [
             'form' => $form->createView(),
             'meals' => $meal
@@ -75,9 +78,8 @@ class MealController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
-            $meal = $form->getData();
 
-            
+            $meal = $form->getData();
             $manager->persist($meal);
             $manager->flush();
 
@@ -85,19 +87,14 @@ class MealController extends AbstractController
                 'success',
                 'Le plat a été inséré avec succès!'
             );
-
             return $this->redirectToRoute('app_meal');
-
         } 
-        // else {
-        //     $this->addFlash(
-        //         'warning',
-        //         'Le plat n\'a pas été inséré !'
-        //     );
-        // }
-
-
-
+        else {
+            $this->addFlash(
+                'warning',
+                'Le plat n\'a pas pu être inséré !'
+            );
+        }
         return $this->render('pages/meal/createMeal.html.twig', [
                 'form' => $form->createView()
             ]
@@ -113,11 +110,9 @@ class MealController extends AbstractController
     public function editMeal(Meal $meal, Request $request, EntityManagerInterface $manager): Response {
 
         $form = $this->createForm(MealType::class, $meal);
-
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) { 
-            
             $meal = $form->getData();
             $manager->persist($meal);
             $manager->flush();
@@ -129,11 +124,9 @@ class MealController extends AbstractController
 
             return $this->redirectToRoute('app_meal');
         }
-
         return $this->render('pages/meal/editMeal.html.twig', [
             'form' => $form->createView()
         ]);
-        
     }
 
     /**
@@ -164,14 +157,20 @@ class MealController extends AbstractController
     }
 
     #[Route('/plats/{id}', name: 'meal.see', methods:['GET', 'POST'])]
-    public function see(Meal $meal, Request $request, NoticeRepository $noticeRepository, EntityManagerInterface $manager): Response 
+    public function see(
+        Meal $meal,
+        Request $request, 
+        NoticeRepository $noticeRepository, 
+        EntityManagerInterface $manager
+        ): Response 
     {
         $notice = new Notice();
         $form = $this->createForm(NoticeType::class, $notice);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            // We tell him that the user is the connected user and that the meal is the one on the page
+            // We tell him that the user is the connected user and that 
+            // the meal is the one on the page
             $notice->setUser($this->getUser())
                 ->setMeal($meal);
             // We will come and test if the user has not already voted

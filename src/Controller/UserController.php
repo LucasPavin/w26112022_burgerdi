@@ -15,9 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    
-    #[Route('/edition/{id}', name: 'user.edit', methods:['GET', 'POST'])]
     // #[Security()]
+    #[Route('/edition/{id}', name: 'user.edit', methods:['GET', 'POST'])]
     /**
      * This controller allow us to edit user's profile
      * @param User $user
@@ -34,7 +33,6 @@ class UserController extends AbstractController
         if(!$this->getUser()){
             return $this->redirectToRoute('security.login');
         }
-
         if($this->getUser() !== $user){
             return $this->redirectToRoute('app_meal');
         }
@@ -57,12 +55,11 @@ class UserController extends AbstractController
     
                 return $this->redirectToRoute('app_meal');
             } else {
-    
+
                 $this->addFlash(
                     'Warning',
                     'Le mot de passe est incorrecte.'
                 );
-
             }
             
         }
@@ -75,19 +72,16 @@ class UserController extends AbstractController
     #[Route('/edition-mot-de-passe/{id}', name:'user.edit.password', methods:['GET', 'POST'])]
     public function editPassword(User $user, Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $manager ) : Response 
     {
-
         if(!$this->getUser()){
             return $this->redirectToRoute('security.login');
         }
-
         if($this->getUser() !== $user){
             return $this->redirectToRoute('app_meal');
         }
 
         $form = $this->createForm(UserPasswordType::class);
-        
-
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
             if ($hasher->isPasswordValid($user, $form->getData()['plainPassword'])) {
 
@@ -113,7 +107,6 @@ class UserController extends AbstractController
                 );
             }
         }
-
 
         return $this->render('pages/user/edit_password.html.twig', [
             'form' => $form->createView()
