@@ -41,13 +41,22 @@ class LoginController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
+
+            $manager->persist($user);
+            $manager->flush();
+
             $this->addFlash(
                 'success',
                 'Votre compte a bien été créé.'
             );
-            $manager->persist($user);
-            $manager->flush();
+
             return $this->redirectToRoute('security.login');
+        } else {
+
+            $this->addFlash(
+                'alert',
+                'Votre compte n\'a pas été créé.'
+            );
         }
 
 

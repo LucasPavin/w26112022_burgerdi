@@ -8,39 +8,44 @@
 
 <div class="login-container">
     <div class="container login-block">
-        <div class="connect">
-            <h2>Connexion</h2>
+        <div class="block-login">
+            <div class="connect">
+                <h2 class="title-connect">Connexion</h2>
 
-            {% for message in app.flashes('success') %}
-                <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
-                    {{ message }}
-                </div>
-            {% endfor %}
+                <form action="{{ path('security.login') }}" method="post" name="login">
 
-            {% if error %}
-                <div class="alert">
-                    {{ error.messageKey | trans(error.messageData, 'security')}}
-                </div>
-            {% endif %}
+                    <div class="col-form-login">
+                        {# <label for="username">Adresse e-mail</label> #}
+                        <input type="email" class="" id="username" placeholder="exemple@burgerdi.fr" name='_username' value="{{ last_username }}">
+                    </div>
+                    <div class="col-form-login">
+                        {# <label for="password">Mot de passe</label> #}
+                        <input type="password" class="password-connect" id="password" placeholder="Mot de passe" name='_password'>
+                    </div>
 
-            <form action="{{ path('security.login') }}" method="post" name="login">
+                    <div class="section-btn-login">
+                        <button type="submit" class="btn">Se connecter</button>
+                    </div>
 
-                <div class="col-form-login">
-                    <label for="username">Adresse e-mail</label>
-                    <input type="email" class="" id="username" placeholder="exemple@burgerdi.fr" name='_username' value="{{ last_username }}">
-                </div>
-                <div class="col-form-login">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" class="" id="password" placeholder="Mot de passe" name='_password'>
-                </div>
+                    {% for message in app.flashes('success') %}
+                        <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
 
-                <button type="submit" class="btn">Se connecter</button>
-                <a href="{{ path('security.registration') }}" class="btn">S'inscrire</a>
+                    {% if error %}
+                        <div class="alert">
+                            {{ error.messageKey | trans(error.messageData, 'security')}}
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+            <div class="registration-block">
+                <h2 class="registration-title">Toujours pas de compte ?</h2>
+                <p>N'hésite pas à t'inscrire alors !</p>
 
-            </form>
-        </div>
-        <div class="registration-block">
-        aaaa
+                <a href="{{ path('security.registration') }}" class="btn-white">S'inscrire</a>
+            </div>
         </div>
     </div>
 </div>

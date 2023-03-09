@@ -72,21 +72,15 @@ class UserController extends AbstractController
     #[Route('/edition-mot-de-passe/{id}', name:'user.edit.password', methods:['GET', 'POST'])]
     public function editPassword(User $user, Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $manager ) : Response 
     {
-        if(!$this->getUser()){
-            return $this->redirectToRoute('security.login');
-        }
-        if($this->getUser() !== $user){
-            return $this->redirectToRoute('app_meal');
-        }
+        if(!$this->getUser()){ return $this->redirectToRoute('security.login');    }
+        if($this->getUser() !== $user){ return $this->redirectToRoute('app_meal'); }
 
         $form = $this->createForm(UserPasswordType::class);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             if ($hasher->isPasswordValid($user, $form->getData()['plainPassword'])) {
-
                 $user->setUpdatedAt(new \DateTimeImmutable());
-
                 $user->setPlainPassword(
                     $form->getData()['newPassword']
                 );
@@ -95,7 +89,6 @@ class UserController extends AbstractController
                     'success',
                     'Le mot de passe a été modifié.'
                 );
-
                 $manager->persist($user);
                 $manager->flush();
 
@@ -107,10 +100,8 @@ class UserController extends AbstractController
                 );
             }
         }
-
         return $this->render('pages/user/edit_password.html.twig', [
             'form' => $form->createView()
         ]);
     }
-
 }
