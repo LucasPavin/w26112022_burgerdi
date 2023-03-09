@@ -2,64 +2,83 @@
 
 {% block body %}
 
-<div class="container">
-    <h1>Création d'un plats</h1>
 
-    <form name="meal" method="post" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col">
-                {{ form_label(form.name)}}
-                {{ form_widget(form.name )}}
-                <div class="form-error">
-                    {{ form_errors(form.name) }}
-                </div>
+    <div class="container block-dashboard">
+
+        <div class="section-dashboard">
+            <div class="menu-dashboard">
+                <p><a href="{{ path('user.dashboard', {id : app.user.id}) }}">Mon compte</a></p>
+
+                {% if is_granted('ROLE_ADMIN')%}
+                    <p><a href="{{ path('meal.new') }}">Ajouter un plat</a></p>
+                    <p><a href="{{ path('app_agency') }} ">Les restaurants</a></p>
+                    <p><a href="{{ path('app_category') }}">Les categories</a></p>
+                {% endif %}
+
+                <p><a href="{{ path('user.edit', {id : app.user.id}) }}">Modifier mes informations</a></p>
+                <p><a href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a></p>
+                <p><a href="{{ path("security.logout") }}">Déconnexion</a></p>
             </div>
-            <div class="col">
-                {{ form_label(form.imageFile)}}
-                {{ form_widget(form.imageFile )}}
-                <div class="form-error">
-                    {{ form_errors(form.imageFile) }}
-                </div>
+            <div class="content-dashboard">
+
+                <h1>Création d'un plats</h1>
+
+               <form class="meal" name="meal" method="post" enctype="multipart/form-data">
+                    <div class="create-meal">
+                        <div class="col">
+                            {{ form_widget(form.name )}}
+                            <div class="form-error">
+                                {{ form_errors(form.name) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.imageFile )}}
+                            <div class="form-error">
+                                {{ form_errors(form.imageFile) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.description )}}
+                            <div class="form-error">
+                                {{ form_errors(form.description) }}
+                            </div>
+                        </div>
+                        <div class="col-calorie-price">
+                            <div class="col price">
+                                {{ form_label(form.price)}}
+                                {{ form_widget(form.price )}}
+                                <div class="form-error">
+                                    {{ form_errors(form.price) }}
+                                </div>
+                            </div>
+                            <div class="col calorie">
+                                {{ form_label(form.calorie)}}
+                                {{ form_widget(form.calorie )}}
+                                <div class="form-error">
+                                    {{ form_errors(form.calorie) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.id_agency )}}
+                            <div class="form-error">
+                                {{ form_errors(form.id_agency) }}
+                            </div>
+                        </div>
+                        <div class="col-category">
+                            {{ form_widget(form.id_category )}}
+                            <div class="form-error">
+                                {{ form_errors(form.id_category) }}
+                            </div>
+                        </div>
+                        {{ form_row(form._token) }}
+                        <button type="submit" id="meal_submit" name="meal[submit]" class="btn btn-submit">Créer un plat</button>
+                    </div>
+                </form>
+                {% include "components/_message_flash.html.twig" %}
+
             </div>
-            <div class="col">
-                {{ form_label(form.description)}}
-                {{ form_widget(form.description )}}
-                <div class="form-error">
-                    {{ form_errors(form.description) }}
-                </div>
-            </div>
-            <div class="col">
-                {{ form_label(form.price)}}
-                {{ form_widget(form.price )}}
-                <div class="form-error">
-                    {{ form_errors(form.price) }}
-                </div>
-            </div>
-            <div class="col">
-                {{ form_label(form.calorie)}}
-                {{ form_widget(form.calorie )}}
-                <div class="form-error">
-                    {{ form_errors(form.calorie) }}
-                </div>
-            </div>
-            <div class="col">
-                {{ form_label(form.id_agency)}}
-                {{ form_widget(form.id_agency )}}
-                <div class="form-error">
-                    {{ form_errors(form.id_agency) }}
-                </div>
-            </div>
-            <div class="col">
-                {{ form_label(form.id_category)}}
-                {{ form_widget(form.id_category )}}
-                <div class="form-error">
-                    {{ form_errors(form.id_category) }}
-                </div>
-            </div>
-            {{ form_row(form._token) }}
-            <button type="submit" id="meal_submit" name="meal[submit]" class="btn btn-submit">Créer un plat</button>
         </div>
-    </form>
-</div>
+    </div>
 
 {% endblock %}

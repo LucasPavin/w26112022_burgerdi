@@ -2,45 +2,64 @@
 
 {% block body %}
 
-<div class="container">
-    <h1>Modification d'un restaurant</h1>
 
-    <form name="agency" method="post">  
-        <div class="row">
-            <div class="col">
-                {{ form_label(form.name)}}
-                {{ form_widget(form.name )}}
-                <div class="form-error">
-                    {{ form_errors(form.name) }}
-                </div>
+    <div class="container block-dashboard">
+
+        <div class="section-dashboard">
+            <div class="menu-dashboard">
+                <p><a href="{{ path('user.dashboard', {id : app.user.id}) }}">Mon compte</a></p>
+
+                {% if is_granted('ROLE_ADMIN')%}
+                    <p><a href="{{ path('meal.new') }}">Ajouter un plat</a></p>
+                    <p><a href="{{ path('app_agency') }} ">Les restaurants</a></p>
+                    <p><a href="{{ path('app_category') }}">Les categories</a></p>
+                {% endif %}
+
+                <p><a href="{{ path('user.edit', {id : app.user.id}) }}">Modifier mes informations</a></p>
+                <p><a href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a></p>
+                <p><a href="{{ path("security.logout") }}">Déconnexion</a></p>
             </div>
-            <div class="col">
-                {{ form_label(form.address)}}
-                {{ form_widget(form.address )}}
-                <div class="form-error">
-                    {{ form_errors(form.address) }}
-                </div>
+            <div class="content-dashboard">
+
+                <h1>Modification d'un restaurant</h1>
+
+
+                <form name="agency" method="post">  
+                    <div class="row">
+                        <div class="col">
+                            {{ form_widget(form.name )}}
+                            <div class="form-error">
+                                {{ form_errors(form.name) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.address )}}
+                            <div class="form-error">
+                                {{ form_errors(form.address) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.city )}}
+                            <div class="form-error">
+                                {{ form_errors(form.city) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.website )}}
+                            <div class="form-error">
+                                {{ form_errors(form.website) }}
+                            </div>
+                        </div>
+                        {{ form_row(form._token) }}
+                        <div class="section-btn">
+                            <button type="submit" id="agency_submit" name="agency[submit]" class="btn btn-submit">Modifier le restaurant</button>
+                        </div>
+                    </div>
+                </form>
+                {% include "components/_message_flash.html.twig" %}
             </div>
-            <div class="col">
-                {{ form_label(form.city)}}
-                {{ form_widget(form.city )}}
-                <div class="form-error">
-                    {{ form_errors(form.city) }}
-                </div>
-            </div>
-            <div class="col">
-                {{ form_label(form.website)}}
-                {{ form_widget(form.website )}}
-                <div class="form-error">
-                    {{ form_errors(form.website) }}
-                </div>
-            </div>
-            {{ form_row(form._token) }}
-            <button type="submit" id="agency_submit" name="agency[submit]" class="btn btn-submit">Modifier</button>
         </div>
-    </form>
+    </div>
 
-    <a href="{{ path('app_agency') }}" class="btn">Voir la liste</a>
-</div>
 
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CategoryController!{% endblock %}
+{% block title %}Burgerdi - Dashboard{% endblock %}
 
 {% block body %}
 <style>
@@ -17,7 +17,7 @@
 
                 {% if is_granted('ROLE_ADMIN')%}
                     <p><a href="{{ path('meal.new') }}">Ajouter un plat</a></p>
-                    <p><a href="{{ path('app_agency') }} ">Les agences</a></p>
+                    <p><a href="{{ path('app_agency') }} ">Les restaurants</a></p>
                     <p><a href="{{ path('app_category') }}">Les categories</a></p>
                 {% endif %}
 
@@ -35,10 +35,10 @@
 
                 <table style="width: 100%; text-align:center">
                     <thead>
-                        <tr>
-                            <th><i>Nom</i></th>
-                            <th></th>
-                            <th></th>
+                        <tr class="openss">
+                            <th>Nom</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
                         </tr>
                     </thead>
                     <tbody>

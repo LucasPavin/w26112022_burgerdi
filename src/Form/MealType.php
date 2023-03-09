@@ -27,6 +27,7 @@ class MealType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr'=> [
+                    'placeholder' => 'Nom du plat',
                     'class' => 'form-name-meal'
                 ],
                 'label' => 'Nom du plats',
@@ -48,6 +49,7 @@ class MealType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'attr'=> [
+                    'placeholder' => 'Description du plat',
                     'class' => 'form-desc-meal'
                 ],
                 'label' => 'Description du plats',
@@ -62,6 +64,7 @@ class MealType extends AbstractType
             ])
             ->add('price', MoneyType::class, [
                 'attr'=> [
+                    'placeholder' => 'Prix du plat',
                     'class' => 'form-price-meal'
                 ],
                 'label' => 'Prix',
@@ -75,6 +78,7 @@ class MealType extends AbstractType
             ])
             ->add('calorie', NumberType::class, [
                 'attr'=> [
+                    'placeholder' => 'Calorie du plat (facultatif)',
                     'class' => 'form-calorie-meal'
                 ],
                 'required' => false,
@@ -89,6 +93,7 @@ class MealType extends AbstractType
                 'query_builder' => function(AgencyRepository $r){
                     return $r->createQueryBuilder('i')->orderBy('i.name', 'ASC');
                 },
+                'placeholder' => 'Choissisez un restaurant',
                 'label' => 'Restaurant',
                 'choice_label' => 'name'
             ])

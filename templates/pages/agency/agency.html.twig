@@ -4,50 +4,64 @@
 
 {% block body %}
 
-    <div class="container">
-        <h2 class="agency">Liste de l'ensemble des agences</h2>
 
-        <div class="content" style="width: 100%; display: flex; justify-content:space-around; align-items:center; margin:40px 0">
-            <a href="{{ path('agency.new') }}" class="btn">Ajouter un restaurant</a>
-            <a href="{{ path('app_meal') }}" class="btn">Liste de plat</a>
-        </div>
-        
-        {% for message in app.flashes('success') %}
-            <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
-                {{ message }}
+    <div class="container block-dashboard">
+
+        <div class="section-dashboard">
+            <div class="menu-dashboard">
+                <p><a href="{{ path('user.dashboard', {id : app.user.id}) }}">Mon compte</a></p>
+
+                {% if is_granted('ROLE_ADMIN')%}
+                    <p><a href="{{ path('meal.new') }}">Ajouter un plat</a></p>
+                    <p><a href="{{ path('app_agency') }} ">Les restaurants</a></p>
+                    <p><a href="{{ path('app_category') }}">Les categories</a></p>
+                {% endif %}
+
+                <p><a href="{{ path('user.edit', {id : app.user.id}) }}">Modifier mes informations</a></p>
+                <p><a href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a></p>
+                <p><a href="{{ path("security.logout") }}">Déconnexion</a></p>
             </div>
-        {% endfor %}
+            <div class="content-dashboard">
 
-       <table  style="width: 100%; text-align:center">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nom</th>
-                    <th>Adresse</th>
-                    <th>Ville</th>
-                    <th>Modifier</th>
-                    <th>Supprimer</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for agency in agencies %}
-                <tr>
-                    <td>{{ agency.id }}</td>
-                    <td>{{ agency.name }}</td>
-                    <td>{{ agency.address }}</td>
-                    <td>{{ agency.city }}</td>
-                    <td>
-                        <a href="{{ path('agency.edit', {id: agency.id}) }}" class="btn">Modifier</a> 
-                    </td>
-                    <td>
-                        <a href="{{ path('agency.delete', {id: agency.id}) }}" class="btn">Supprimer</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-       </table>
- 
+                
+                <h1>Les restaurants</h1>
 
-    </div> 
+                <div class="section-btn count-btn">
+                    <p>Il y a <span class="bold">{{ agencies.getTotalItemCount }} catégorie(s).</span>  </p>
+                    <a href="{{ path('agency.new') }}" class="openss">Ajouter un restaurant</a>
+                </div>
+
+                <table  style="width: 100%; text-align:center">
+                    <thead>
+                        <tr class="openss">
+                            <th>Nom</th>
+                            <th>Ville</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for agency in agencies %}
+                        <tr>
+                            <td>{{ agency.name }}</td>
+                            <td>{{ agency.city }}</td>
+                            <td>
+                                <a href="{{ path('agency.edit', {id: agency.id}) }}" class="btn">Modifier</a> 
+                            </td>
+                            <td>
+                                <a href="{{ path('agency.delete', {id: agency.id}) }}" class="btn">Supprimer</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% include "components/_message_flash.html.twig" %}
+
+                    <div class="navigation">
+                        {{ knp_pagination_render(agencies) }}
+                    </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

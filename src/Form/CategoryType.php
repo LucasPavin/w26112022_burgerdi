@@ -11,19 +11,34 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('name', TextType::class, [
+            'attr'=> [
+                'placeholder' => 'Nom de la catégorie',
+                'class' => 'form-name-meal'
+            ],
+            'label' => 'Nom du plats',
+            'label_attr' => [
+                'class' => 'form-label-meal'
+            ],
+            'constraints' => [
+                //Valide qu'une valeur n'est pas vide ≠ de chaîne * @Vich\Uploadable
+                new Assert\Length(['min'=> '2' ,'max'=> '75']),
+                new Assert\NotBlank()
+            ]  
+            ])
             ->add('id_meal', EntityType::class, [
                 'class' => Meal::class,
                 'query_builder' => function(MealRepository $r){
                     return $r->createQueryBuilder('i')->orderBy('i.name', 'ASC');
                 },
-                'label' => 'Meal(s)',
+                'label' => 'Assignez a un plat ?',
                 'choice_label' => 'name',
                 'multiple' => true, 
                 'expanded' => true,

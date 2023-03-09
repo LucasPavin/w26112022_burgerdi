@@ -19,6 +19,7 @@ class AgencyType extends AbstractType
         $builder    
             ->add('name', TextType::class, [
                 'attr' => [
+                    'placeholder' => 'Nom du restaurant',
                     'class' => 'class-input-name',
                 ],
                 'label' => 'Nom du restaurant',
@@ -33,6 +34,7 @@ class AgencyType extends AbstractType
             ])
             ->add('address', TextType::class, [
                 'attr' => [
+                    'placeholder' => 'Adresse du restaurant',
                     'class' => 'class-input-address',
                 ],
                 'label' => 'Adresse du restaurant',
@@ -47,6 +49,7 @@ class AgencyType extends AbstractType
             ])
             ->add('city', TextType::class, [
                 'attr' => [
+                    'placeholder' => 'Ville du restaurant',
                     'class' => 'class-input-city',
                 ],
                 'label' => 'Ville du restaurant',
@@ -61,6 +64,7 @@ class AgencyType extends AbstractType
             ])
             ->add('website', TextType::class, [
                 'attr' => [
+                    'placeholder' => 'Site du restaurant',
                     'class' => 'class-input-website',
                 ],
                 'label' => 'Site du restaurant',
@@ -70,7 +74,6 @@ class AgencyType extends AbstractType
                 //Ensemble de contrainte pour pas qu'il est de mauvaise donnée.
                 'constraints' => [
                     //Valide qu'une valeur n'est pas vide ≠ de chaîne vide
-                    new Assert\NotBlank()
                 ]
             ])
             ->add('submit', SubmitType::class, [

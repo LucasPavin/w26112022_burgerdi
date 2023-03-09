@@ -4,30 +4,48 @@
 
 {% block body %}
 
-    <div class="container">
-            <h2 class="agency">Liste de l'ensemble des agences</h2>
+    <div class="container block-dashboard">
 
-            <form name="category" method="post">
-                <div class="row">
-                    <div class="col">
-                        {{ form_label(form.name)}}
-                        {{ form_widget(form.name )}}
-                        <div class="form-error">
-                            {{ form_errors(form.name) }}
-                        </div>
-                    </div>
-                    <div class="col">
-                        {{ form_label(form.id_meal)}}
-                        {{ form_widget(form.id_meal )}}
-                        <div class="form-error">
-                            {{ form_errors(form.id_meal) }}
-                        </div>
-                    </div>
-                    {{ form_row(form._token) }}
-                    <button type="submit" id="category_submit" name="category[submit]" class="btn btn-submit">Modifier la catégorie</button>
-                </div>
-            </form>
+        <div class="section-dashboard">
+            <div class="menu-dashboard">
+                <p><a href="{{ path('user.dashboard', {id : app.user.id}) }}">Mon compte</a></p>
 
+                {% if is_granted('ROLE_ADMIN')%}
+                    <p><a href="{{ path('meal.new') }}">Ajouter un plat</a></p>
+                    <p><a href="{{ path('app_agency') }} ">Les restaurants</a></p>
+                    <p><a href="{{ path('app_category') }}">Les categories</a></p>
+                {% endif %}
+
+                <p><a href="{{ path('user.edit', {id : app.user.id}) }}">Modifier mes informations</a></p>
+                <p><a href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a></p>
+                <p><a href="{{ path("security.logout") }}">Déconnexion</a></p>
+            </div>
+            <div class="content-dashboard">
+
+                <h1>Modification d'une catégorie </h1>
+                
+                <form name="category" method="post">
+                    <div class="row">
+                        <div class="col">
+                            {{ form_widget(form.name )}}
+                            <div class="form-error">
+                                {{ form_errors(form.name) }}
+                            </div>
+                        </div>
+                        <div class="col-category">
+                            <p class="openss" style="text-decoration: underline">{{ form_label(form.id_meal)}}</p>
+                            {{ form_widget(form.id_meal )}}
+                            <div class="form-error">
+                                {{ form_errors(form.id_meal) }}
+                            </div>
+                        </div>
+                        {{ form_row(form._token) }}
+                        <button type="submit" id="category_submit" name="category[submit]" class="btn btn-submit">Modifier la catégorie</button>
+                    </div>
+                </form>
+                {% include "components/_message_flash.html.twig" %}
+            </div>
+        </div>
     </div>
 
 {% endblock %}

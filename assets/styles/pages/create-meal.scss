@@ -1,0 +1,60 @@
+.meal {
+    width: 600px!important;
+    .create-meal {
+        display: flex;
+        flex-direction: column;
+
+        .col-calorie-price {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .price {
+                width: 45%;
+            }
+            .calorie {
+                width: 45%;
+            }
+        }
+
+        .col{
+            margin-top: 15px;
+            width: 100%;
+            input {
+                width: 100%;    
+                border: none;
+                background-color: rgba(128, 128, 128, 0.199);
+                border-radius: 5px;
+                box-shadow: 2px 2px 8px #999;
+            }
+            textarea {
+                width: 100%;    
+                padding: 1rem;
+                height: 200px;
+                resize: none;
+                border: none;
+                background-color: rgba(128, 128, 128, 0.199);
+                border-radius: 5px;
+                box-shadow: 2px 2px 8px #999;
+            }
+            select {
+                width: 100%;    
+                padding: 1rem;
+                resize: none;
+                border: none;
+                background-color: rgba(128, 128, 128, 0.199);
+                border-radius: 5px;
+                box-shadow: 2px 2px 8px #999;
+            }
+
+            #meal_id_category  {
+                background-color: red;
+            }
+        }
+        .col-category {
+            margin: 2rem 0;
+            input {
+                width: 13px;
+            }
+        }
+    }
+}
