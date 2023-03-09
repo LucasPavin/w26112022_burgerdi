@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\CategoryRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,10 +16,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class CategoryController extends AbstractController
 {
     #[Security("is_granted('ROLE_ADMIN')")]
-    #[Route('/categories', name: 'app_category')]
-    public function index( CategoryRepository $repository ): Response
+    #[Route('/dashboard/categories', name: 'app_category')]
+    public function index( CategoryRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
-        $categories = $repository->findAll();
+        $categories = $paginator->paginate(
+            $repository->findAll(), /* query all meals result */
+            $request->query->getInt('page', 1), /*page number*/
+            6 /*limit per page*/
+        );
+        
+        
+        $repository->findAll();
 
         return $this->render('pages/category/index.html.twig', [
             'categories' => $categories,

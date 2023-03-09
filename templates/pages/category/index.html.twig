@@ -8,45 +8,61 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="container">
 
+    <div class="container block-dashboard">
 
-    <div class="content" style="width: 100%; display: flex; justify-content:space-around; align-items:center; margin:40px 0">
-        <a href="{{ path('category.new') }}" class="btn">Ajouter une categorie</a>
-        <a href="{{ path('app_agency') }}" class="btn">Liste des agences</a>
-        <a href="{{ path('app_meal') }}" class="btn">Liste des plats</a>
+        <div class="section-dashboard">
+            <div class="menu-dashboard">
+                <p><a href="{{ path('user.dashboard', {id : app.user.id}) }}">Mon compte</a></p>
+
+                {% if is_granted('ROLE_ADMIN')%}
+                    <p><a href="{{ path('meal.new') }}">Ajouter un plat</a></p>
+                    <p><a href="{{ path('app_agency') }} ">Les agences</a></p>
+                    <p><a href="{{ path('app_category') }}">Les categories</a></p>
+                {% endif %}
+
+                <p><a href="{{ path('user.edit', {id : app.user.id}) }}">Modifier mes informations</a></p>
+                <p><a href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a></p>
+                <p><a href="{{ path("security.logout") }}">Déconnexion</a></p>
+            </div>
+            <div class="content-dashboard">
+
+                <h1>Les catégories </h1>
+                <div class="section-btn count-btn">
+                    <p>Il y a <span class="bold">{{ categories.getTotalItemCount }} catégorie(s).</span>  </p>
+                    <a href="{{ path('category.new') }}" class="openss">Ajouter une categorie</a>
+                </div>
+
+                <table style="width: 100%; text-align:center">
+                    <thead>
+                        <tr>
+                            <th><i>Nom</i></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                        <tr>
+                            <td>{{ category.name }}</td>
+                            
+                            <td> 
+                                <a href="{{ path('category.edit', {id: category.id}) }}" class="btn">Modifer</a>
+                            </td>
+                            <td> 
+                                <a href=" {{ path('category.delete', {id: category.id}) }} " class="btn">Supprimer</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                    <div class="navigation">
+                        {{ knp_pagination_render(categories) }}
+                    </div>
+                {% include "components/_message_flash.html.twig" %}
+            </div>
+        </div>
     </div>
 
-    {% for message in app.flashes('success') %}
-        <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
-            {{ message }}
-        </div>
-    {% endfor %}
-
-   <table style="width: 100%; text-align:center">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nom</th>
-                    <th>Modification</th>
-                    <th>Suppression</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for category in categories %}
-                <tr>
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.name }}</td>
-                    
-                    <td> 
-                        <a href="{{ path('category.edit', {id: category.id}) }}" class="btn">Modifer</a>
-                    </td>
-                    <td> 
-                        <a href=" {{ path('category.delete', {id: category.id}) }} " class="btn">Supprimer</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-       </table>
-</div>
 {% endblock %}
