@@ -18,6 +18,7 @@ class UserType extends AbstractType
     {
         $builder ->add('lastname', TextType::class, [
             'attr' => [
+                'placeholder' => 'Nom de famille',
                 'class' => 'form-name-registration',
                 'minlenght' => '2',
                 'max-lenght' => '50'
@@ -28,11 +29,12 @@ class UserType extends AbstractType
             ],
             'constraints' => [
                 new Assert\NotBlank(),
-                new Assert\Length(['min' => 2, 'max' => 50]),
+                new Assert\Length(['min' => 2, 'max' => 46]),
             ]
         ])
         ->add('firstname', TextType::class, [
             'attr' => [
+                'placeholder' => 'Prénom',
                 'class' => 'form-name-registration',
                 'minlenght' => '2',
                 'max-lenght' => '50'
@@ -43,13 +45,13 @@ class UserType extends AbstractType
             ],
             'constraints' => [
                 new Assert\NotBlank(),
-                new Assert\Length(['min' => 2, 'max' => 50]),
+                new Assert\Length(['min' => 2, 'max' => 46]),
             ]
         ])
         ->add('email', EmailType::class, [
             'attr' => [
                 'class' => 'form-email-registration',
-                'placeholder' => 'exemple@burgerdi.fr',
+                'placeholder' => 'Adresse e-mail',
             ],
             'label' => 'Adresse e-mail',
             'label_attr' => [
@@ -68,7 +70,7 @@ class UserType extends AbstractType
             ],
             'constraints' => [
                 new Assert\NotBlank(),
-                new Assert\Length(['min' => 2, 'max' => 180]),
+                new Assert\Length(['min' => 10, 'max' => 15]),
             ]
         ])
         ->add('city', TextType::class, [
@@ -83,11 +85,12 @@ class UserType extends AbstractType
             ],
             'constraints' => [
                 new Assert\NotBlank(),
-                new Assert\Length(['min' => 2, 'max' => 180]),
+                new Assert\Length(['min' => 2, 'max' => 35]),
             ]
         ])
         ->add('plainPassword', PasswordType::class, [
             'attr' => [
+                "placeholder" => "Saissisez votre mot de passe",
                 'class' => 'form-name-registration'
             ],
             'label' => 'Mot de passe',

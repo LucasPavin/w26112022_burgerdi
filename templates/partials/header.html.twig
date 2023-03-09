@@ -10,12 +10,7 @@
             <li class="navbar__menu-item"><a href="{{ path('app_meal') }}">Les Plats</a></li>
             {% if app.user %}
             <li class="navbar__menu-item navbar__menu-item--dropdown">
-                <a href="#">{{ app.user.firstname }}</a>
-                <ul class="navbar__dropdown">
-                <li class="navbar__dropdown-item"><a href="{{ path('user.edit', {id : app.user.id}) }}">Modifier mes informations</a></li>
-                <li class="navbar__dropdown-item"><a href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a></li>
-                <li class="navbar__dropdown-item"><a href="#">Déconnexion</a></li>
-                </ul>
+                <li class="navbar__menu-item"><a href="{{ path('user.dashboard', {id : app.user.id}) }}">Mon compte</a></li>
             </li>
             {% else %}
                 <li class="navbar__menu-item"><a href="{{ path('security.login') }}">Connexion</a></li>
@@ -33,14 +28,7 @@
                 <li class="navbar__menu-item"><a href="{{ path('app_main') }}">Accueil</a></li>
                 <li class="navbar__menu-item"><a href="{{ path('app_meal') }}">Les Plats</a></li>
                 {% if app.user %}
-                <li class="navbar__menu-item navbar__menu-item--dropdown">
-                    <a href="#">{{ app.user.firstname }}</a>
-                    <ul class="navbar__dropdown">
-                    <li class="navbar__dropdown-item"><a href="{{ path('user.edit', {id : app.user.id}) }}">Modifier mes informations</a></li>
-                    <li class="navbar__dropdown-item"><a href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a></li>
-                    <li class="navbar__dropdown-item"><a href="#">Déconnexion</a></li>
-                    </ul>
-                </li>
+                    <li class="navbar__menu-item"><a href="{{ path('user.dashboard', {id : app.user.id}) }}">Mon compte</a></li>
                 {% else %}
                     <li class="navbar__menu-item"><a href="{{ path('security.login') }}">Connexion</a></li>
                 {% endif %}

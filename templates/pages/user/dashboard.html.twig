@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container block-dashboard">
+
+        <div class="section-dashboard">
+            <div class="menu-dashboard">
+                <p><a href="{{ path('user.dashboard', {id : app.user.id}) }}">Mon compte</a></p>
+
+                {% if is_granted('ROLE_ADMIN')%}
+                    <p><a href="{{ path('meal.new') }}">Ajouter un plat</a></p>
+                    <p><a href="{{ path('app_agency') }} ">Les agences</a></p>
+                    <p><a href="{{ path('app_category') }}">Les categories</a></p>
+                {% endif %}
+
+                <p><a href="{{ path('user.edit', {id : app.user.id}) }}">Modifier mes informations</a></p>
+                <p><a href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a></p>
+                <p><a href="{{ path("security.logout") }}">Déconnexion</a></p>
+            </div>
+            <div class="content-dashboard">
+                <h1>{{ app.user.firstname }}, bienvenu sur votre compte</h1>
+                <div class="section-btn">
+                    <p><a href="{{ path('app_meal') }}" class="btn">Voir les plats</a></p>
+                </div>
+
+                {% include "components/_message_flash.html.twig" %}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}   

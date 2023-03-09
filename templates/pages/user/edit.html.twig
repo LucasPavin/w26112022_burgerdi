@@ -2,68 +2,81 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="container block-dashboard">
 
+        <div class="section-dashboard">
+            <div class="menu-dashboard">
+                <p><a href="{{ path('user.dashboard', {id : app.user.id}) }}">Mon compte</a></p>
 
+                {% if is_granted('ROLE_ADMIN')%}
+                    <p><a href="{{ path('meal.new') }}">Ajouter un plat</a></p>
+                    <p><a href="{{ path('app_agency') }} ">Les agences</a></p>
+                    <p><a href="{{ path('app_category') }}">Les categories</a></p>
+                {% endif %}
 
-        <h1>Formulaire de modification des informations </h1>
-
-
-        {% for message in app.flashes('Warning') %}
-            <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: orange; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
-                {{ message }}
+                <p><a href="{{ path('user.edit', {id : app.user.id}) }}">Modifier mes informations</a></p>
+                <p><a href="{{ path('user.edit.password', {id : app.user.id}) }}">Modifier mon mot de passe</a></p>
+                <p><a href="{{ path("security.logout") }}">Déconnexion</a></p>
             </div>
-        {% endfor %}
+            <div class="content-dashboard">
 
-        <form name="user_password" method="post">
-            <div class="row">
-                <div class="col">
-                    {{ form_label(form.lastname)}}
-                    {{ form_widget(form.lastname )}}
-                    <div class="form-error">
-                        {{ form_errors(form.lastname) }}
+                <h1>Modifier vos informations </h1>
+
+
+                {% for message in app.flashes('Warning') %}
+                    <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: orange; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
+                        {{ message }}
                     </div>
-                </div>
-                <div class="col">
-                    {{ form_label(form.firstname)}}
-                    {{ form_widget(form.firstname )}}
-                    <div class="form-error">
-                        {{ form_errors(form.firstname) }}
+                {% endfor %}
+
+                <form class="form-dash" name="user_password" method="post">
+                    <div class="row">
+                        <div class="col">
+                            {{ form_widget(form.lastname )}}
+                            <div class="form-error">
+                                {{ form_errors(form.lastname) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.firstname )}}
+                            <div class="form-error">
+                                {{ form_errors(form.firstname) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.email )}}
+                            <div class="form-error">
+                                {{ form_errors(form.email) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.phone )}}
+                            <div class="form-error">
+                                {{ form_errors(form.phone) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.city )}}
+                            <div class="form-error">
+                                {{ form_errors(form.city) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.plainPassword )}}
+                            <div class="form-error">
+                                {{ form_errors(form.plainPassword) }}
+                            </div>
+                        </div>
+                        {{ form_row(form._token) }}
+                        <div class="section-btn">
+                            <button type="submit" id="user_Enregistrer" name="user[Enregistrer]" class="btn">Modifier les informations</button>
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    {{ form_label(form.email)}}
-                    {{ form_widget(form.email )}}
-                    <div class="form-error">
-                        {{ form_errors(form.email) }}
-                    </div>
-                </div>
-                <div class="col">
-                    {{ form_label(form.phone)}}
-                    {{ form_widget(form.phone )}}
-                    <div class="form-error">
-                        {{ form_errors(form.phone) }}
-                    </div>
-                </div>
-                <div class="col">
-                    {{ form_label(form.city)}}
-                    {{ form_widget(form.city )}}
-                    <div class="form-error">
-                        {{ form_errors(form.city) }}
-                    </div>
-                </div>
-                <div class="col">
-                    {{ form_label(form.plainPassword)}}
-                    {{ form_widget(form.plainPassword )}}
-                    <div class="form-error">
-                        {{ form_errors(form.plainPassword) }}
-                    </div>
-                </div>
-                {{ form_row(form._token) }}
-                <button type="submit" id="user_Enregistrer" name="user[Enregistrer]" class="btn">Modifier</button>
+                </form>
+
             </div>
-        </form>
-
+        </div>
     </div>
+
     
 {% endblock %}

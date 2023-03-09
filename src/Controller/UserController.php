@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     // #[Security()]
-    #[Route('/edition/{id}', name: 'user.edit', methods:['GET', 'POST'])]
+    #[Route('/dashboard/edition-information/{id}', name: 'user.edit', methods:['GET', 'POST'])]
     /**
      * This controller allow us to edit user's profile
      * @param User $user
@@ -53,7 +53,7 @@ class UserController extends AbstractController
                     'Les informations de votre compte ont été modifié.'
                 );
     
-                return $this->redirectToRoute('app_meal');
+                return $this->redirectToRoute('user.dashboard', ['id' => $user->getId()]);
             } else {
 
                 $this->addFlash(
@@ -69,11 +69,12 @@ class UserController extends AbstractController
         ]);
     }
     // #[Security("is_granted('ROLE_USER','ROLE_ADMIN') and user === getUser()")]
-    #[Route('/edition-mot-de-passe/{id}', name:'user.edit.password', methods:['GET', 'POST'])]
+    #[Route('/dashboard/edition-mot-de-passe/{id}', name:'user.edit.password', methods:['GET', 'POST'])]
     public function editPassword(User $user, Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $manager ) : Response 
     {
         if(!$this->getUser()){ return $this->redirectToRoute('security.login');    }
-        if($this->getUser() !== $user){ return $this->redirectToRoute('app_meal'); }
+        if($this->getUser() !== $user){ return $this->redirectToRoute('app_meal');
+        }
 
         $form = $this->createForm(UserPasswordType::class);
         $form->handleRequest($request);
@@ -92,7 +93,7 @@ class UserController extends AbstractController
                 $manager->persist($user);
                 $manager->flush();
 
-                return $this->redirectToRoute('app_meal');
+                return $this->redirectToRoute('user.dashboard', ['id' => $user->getId()]);
             } else {
                 $this->addFlash(
                     'Warning',
@@ -103,5 +104,14 @@ class UserController extends AbstractController
         return $this->render('pages/user/edit_password.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+        // #[Security("is_granted('ROLE_USER','ROLE_ADMIN') and user === getUser()")]
+    #[Route('/dashboard/{id}', name:'user.dashboard', methods:['GET', 'POST'])]
+    public function dashboard(User $user ) : Response 
+    {
+        if(!$this->getUser()){ return $this->redirectToRoute('security.login');    }
+        if($this->getUser() !== $user){ return $this->redirectToRoute('app_meal'); }
+
+        return $this->render('pages/user/dashboard.html.twig');
     }
 }

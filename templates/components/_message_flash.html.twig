@@ -8,4 +8,10 @@
         <div class="flash-notice delete">
             {{ message }}
         </div>
+
+        {% for message in app.flashes('Warning') %}
+            <div class="flash-notice warning" style="width: 100%; padding: 1rem 3rem; background-color: orange; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endfor %}
