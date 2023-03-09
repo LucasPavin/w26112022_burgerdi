@@ -7,7 +7,7 @@ use App\Entity\Agency;
 use App\Repository\AgencyRepository;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
-use Doctrine\DBAL\Types\FloatType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -73,7 +73,7 @@ class MealType extends AbstractType
                     new Assert\NotBlank()
                 ]  
             ])
-            ->add('calorie', FloatType::class, [
+            ->add('calorie', NumberType::class, [
                 'attr'=> [
                     'class' => 'form-calorie-meal'
                 ],

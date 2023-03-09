@@ -82,12 +82,17 @@
 .white {
   background-color: var(--white);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  
-  &__menu {
-    a {
-      color: var(--black);
+
+  .navbar__right {
+    .navbar__menu{
+      &-item {
+        a {
+          color: var(--primary-color);
+        }
+      }
     }
   }
+  
 }
 
 .green {

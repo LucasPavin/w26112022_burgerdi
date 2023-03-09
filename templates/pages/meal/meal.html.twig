@@ -77,61 +77,74 @@
 
         </div>
 
-                {% if app.user %}
-                    <div class="grid-meal__info-comment openss">
-                        <div class="notice">
-                            <form name="notice" method="post">
-                                <h2>Et toi ? T'en pense quoi ? Dit le nous..</h2>
-                                <div class="col-rating">
-                                    {{ form_widget(form.rating )}}
-                                    <div class="form-error">
-                                        {{ form_errors(form.rating) }}
-                                    </div>
+            {% if app.user %}
+                <div class="grid-meal__info-comment openss">
+                    <div class="notice">
+                        <form name="notice" method="post">
+                            <h2>Et toi ? T'en pense quoi ? Dit le nous..</h2>
+                            <div class="col-rating">
+                                {{ form_widget(form.rating )}}
+                                <div class="form-error">
+                                    {{ form_errors(form.rating) }}
                                 </div>
-                                <div class="col-comment">
-                                    {{ form_widget(form.comment )}}
-                                    <div class="form-error">
-                                        {{ form_errors(form.comment) }}
-                                    </div>
+                            </div>
+                            <div class="col-comment">
+                                {{ form_widget(form.comment )}}
+                                <div class="form-error">
+                                    {{ form_errors(form.comment) }}
                                 </div>
+                            </div>
 
-                                {{ form_row(form._token)}}
-                                <div class="submit-comment">
-                                    <button type="submit" id="notice_Submit" name="notice[Submit]" class="btn">Commenter</button>
-                                </div>
-                            </form>
-                        </div>
+                            {{ form_row(form._token)}}
+                            <div class="submit-comment">
+                                <button type="submit" id="notice_Submit" name="notice[Submit]" class="btn">Commenter</button>
+                            </div>
+                        </form>
                     </div>
-                {% else %}
-    {# L'utilisateur n'est pas connecté #}
-                    <div class="grid-meal__info-comment openss">
-                        <div class="notice">
-                            <form name="notice" method="post">
-                                    <h2>Et toi ? T'en pense quoi ? Dit le nous..</h2>
-                                    <p>Pour accéder à cette zone secrète, il faut d'abord se connecter à la matrix !</p>
-
-                                <div class="submit-comment">
-                                    <a href="{{ path('security.login') }}" class="btn">Se connecter</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                {% endif %}
-
- 
-
-            {% for message in app.flashes('success') %}
-                <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #37784F; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
-                    {{ message }}
                 </div>
-            {% endfor %}
+            {% else %}
+                {# L'utilisateur n'est pas connecté #}
+                <div class="grid-meal__info-comment openss">
+                    <div class="notice">
+                        <form name="notice" method="post">
+                                <h2>Et toi ? T'en pense quoi ? Dit le nous..</h2>
+                                <p>Pour accéder à cette zone secrète, il faut d'abord se connecter à la matrix !</p>
 
-            {% for notice in meal.notices %}
-                <p>{{ notice.user.firstname }} {{ notice.user.lastname | slice(0, 3) }}***</p>
-                <p>{{ notice.comment }}</p>
-                <p>{{ notice.rating }}/5</p>
-                <p><i>Publié le {{ notice.createdAt | date("d-m-Y H:i", "Europe/Paris") }}</i></p>
-            {% endfor %}
+                            <div class="submit-comment">
+                                <a href="{{ path('security.login') }}" class="btn">Se connecter</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        {% for message in app.flashes('success') %}
+            <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #37784F; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="section-notice">
+            <h3 class="notice-title">Les avis du {{ meal.name }}</h3>
+
+            <div class="all-notice">
+                {% for notice in meal.notices %}
+                    <div class="one-notice">
+                        <div class="user-date">
+                            <p class="username">{{ notice.user.firstname }} {{ notice.user.lastname | slice(0, 3) }}***</p>
+                            <p class="date-created"><i>{{ notice.createdAt | date("d-m-Y H:i", "Europe/Paris") }}</i></p>
+                        </div>
+                        <div class="comment openss">
+                            <p>{{ notice.comment }}</p>
+                        </div>
+                        <div class="rating openss">
+                            <p>{{ notice.user.firstname }} a décidé de mettre un {{ notice.rating }}/5</p>
+                        </div>
+                        
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
