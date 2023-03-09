@@ -6,61 +6,60 @@
 
 {% block body %}
 
-    <div class="container">
-        <h1>Formulaire d'inscription</h1>
+<div class="register-container">
+    <div class="container register-block">
+        <div class="block-register">
+            <div class="registration-block">
+                <h2 class="title-connect">Inscription</h2>
+                <form name="registration" method="post">
+                    <div class="row">
+                        <div class="col">
+                            {{ form_label(form.lastname)}}
+                            {{ form_widget(form.lastname )}}
+                        </div>
+                        <div class="col">
+                            {{ form_label(form.firstname)}}
+                            {{ form_widget(form.firstname )}}
+                        </div>
+                        <div class="col">
+                            {{ form_label(form.email)}}
+                            {{ form_widget(form.email )}}
+                        </div>
+                        <div class="col">
+                            {{ form_label(form.phone)}}
+                            {{ form_widget(form.phone )}}
+                        </div>
+                        <div class="col">
+                            {{ form_label(form.city)}}
+                            {{ form_widget(form.city )}}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.plainPassword )}}
+                        </div>
+                        {{ form_row(form._token) }}
 
-        {# {{ form(form) }} #}
+                        <button type="submit" id="meal_submit" name="meal[submit]" class="btn btn-submit">S'inscrire</button>
 
 
-        <form name="registration" method="post">
-            <div class="row">
-                <div class="col">
-                    {{ form_label(form.lastname)}}
-                    {{ form_widget(form.lastname )}}
-                    <div class="form-error">
-                        {{ form_errors(form.lastname) }}
+                        <div class="form-error">
+                            {{ form_errors(form.lastname) }}
+                            {{ form_errors(form.firstname) }}
+                            {{ form_errors(form.email) }}
+                            {{ form_errors(form.phone) }}
+                            {{ form_errors(form.city) }}
+                            {{ form_errors(form.plainPassword) }}
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    {{ form_label(form.firstname)}}
-                    {{ form_widget(form.firstname )}}
-                    <div class="form-error">
-                        {{ form_errors(form.firstname) }}
-                    </div>
-                </div>
-                <div class="col">
-                    {{ form_label(form.email)}}
-                    {{ form_widget(form.email )}}
-                    <div class="form-error">
-                        {{ form_errors(form.email) }}
-                    </div>
-                </div>
-                <div class="col">
-                    {{ form_label(form.phone)}}
-                    {{ form_widget(form.phone )}}
-                    <div class="form-error">
-                        {{ form_errors(form.phone) }}
-                    </div>
-                </div>
-                <div class="col">
-                    {{ form_label(form.city)}}
-                    {{ form_widget(form.city )}}
-                    <div class="form-error">
-                        {{ form_errors(form.city) }}
-                    </div>
-                </div>
-                <div class="col">
-                    {{ form_widget(form.plainPassword )}}
-                    <div class="form-error">
-                        {{ form_errors(form.plainPassword) }}
-                    </div>
-                </div>
-                {{ form_row(form._token) }}
-
-                <button type="submit" id="meal_submit" name="meal[submit]" class="btn btn-submit">S'inscrire</button>
+                </form>
             </div>
-        </form>
+            <div class="connect">
+                <h2 class="connect-title">Déjà inscrit ?</h2>
+                <p>Clique sur le bouton pour te connecter</p>
 
+                <a href="{{ path('security.login') }}" class="btn-white">Se connecter</a>
+            </div>
+        </div>
     </div>
+</div>
 
 {% endblock %}

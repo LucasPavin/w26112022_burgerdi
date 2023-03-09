@@ -1,0 +1,95 @@
+.register-container {
+    background-color: var(--second-color);
+    display: flex;
+    align-items: center;
+
+    .register-block {
+        width: 800px;
+        margin: auto;
+        position: relative;
+        .block-register {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            border-radius: 10px;
+            transform: translate(-50%,-50%);
+            -webkit-box-shadow: 0px 0px 17px -2px #000000; 
+            box-shadow: 0px 0px 17px -2px #000000;
+
+            .registration-block {
+                background-color: white;
+                width: 50%;
+                height: 650px;
+                border-bottom-left-radius: 10px;
+                border-top-left-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;                
+                
+                .title-connect {
+                    text-align: center;
+                    padding-bottom: 4px;
+                    @media screen and (min-width: 992px) {
+                        font-size: 2rem;
+                    }
+                }
+                .row {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .col {
+                    display: flex;
+                    flex-direction: column;
+                    padding-bottom: 10px;
+                    label {
+                        padding-bottom: 5px;
+                    }
+                    input {
+                        width: 325px;
+                        border: none;
+                        border-radius: 5px;
+                        background-color: rgba(128, 128, 128, 0.15);
+                    }
+                    #registration_plainPassword {
+                        width: 360px;
+                    }
+                }
+                .section-btn-login {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+            .connect {
+                background-color: var(--primary-color);
+                width: 50%;
+                height: 650px;
+                border-bottom-right-radius: 10px;
+                border-top-right-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                .connect-title {
+                    color: white;
+                    @media screen and (min-width: 992px) {
+                        font-size: 2rem;
+                    }
+                }
+                p {
+                    color: white;
+                    @media screen and (min-width: 992px) {
+                        font-size: 1.1rem;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -51,13 +51,7 @@ class LoginController extends AbstractController
             );
 
             return $this->redirectToRoute('security.login');
-        } else {
-
-            $this->addFlash(
-                'alert',
-                'Votre compte n\'a pas été créé.'
-            );
-        }
+        } 
 
 
         return $this->render('pages/login/registration.html.twig', [

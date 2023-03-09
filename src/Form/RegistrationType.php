@@ -21,9 +21,10 @@ class RegistrationType extends AbstractType
         $builder
             ->add('lastname', TextType::class, [
                 'attr' => [
+                    'placeholder' => "Dupont",
                     'class' => 'form-name-registration',
                     'minlenght' => '2',
-                    'max-lenght' => '50'
+                    'max-lenght' => '46'
                 ],
                 'label' => 'Nom',
                 'label_attr' => [
@@ -31,14 +32,15 @@ class RegistrationType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\Length(['min' => 2, 'max' => 50]),
+                    new Assert\Length(['min' => 2, 'max' => 46]),
                 ]
             ])
             ->add('firstname', TextType::class, [
                 'attr' => [
+                    'placeholder' => "Georges",
                     'class' => 'form-name-registration',
                     'minlenght' => '2',
-                    'max-lenght' => '50'
+                    'max-lenght' => '46'
                 ],
                 'label' => 'Prénom',
                 'label_attr' => [
@@ -46,14 +48,15 @@ class RegistrationType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\Length(['min' => 2, 'max' => 50]),
+                    new Assert\Length(['min' => 2, 'max' => 46]),
                 ]
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
+                    'placeholder' => "georges.dupont@burgerdi.fr",
                     'class' => 'form-name-registration',
                     'minlenght' => '2',
-                    'max-lenght' => '50'
+                    'max-lenght' => '62'
                 ],
                 'label' => 'Adresse e-mail',
                 'label_attr' => [
@@ -62,14 +65,15 @@ class RegistrationType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Email(),
-                    new Assert\Length(['min' => 2, 'max' => 180]),
+                    new Assert\Length(['min' => 2, 'max' => 62]),
                 ]
             ])
             ->add('phone', NumberType::class, [
                 'attr' => [
+                    'placeholder' => "06 ** ** ** **",
                     'class' => 'form-name-registration',
                     'minlenght' => '2',
-                    'max-lenght' => '50'
+                    'max-lenght' => '15'
                 ],
                 'label' => 'Téléphone',
                 'label_attr' => [
@@ -77,14 +81,15 @@ class RegistrationType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\Length(['min' => 2, 'max' => 180]),
+                    new Assert\Length(['min' => 2, 'max' => 15]),
                 ]
             ])
             ->add('city', TextType::class, [
                 'attr' => [
+                    'placeholder' => "Vern-Sur-Seiche",
                     'class' => 'form-name-registration',
                     'minlenght' => '2',
-                    'max-lenght' => '50'
+                    'max-lenght' => '35'
                 ],
                 'label' => 'Nom de ville',
                 'label_attr' => [
@@ -92,7 +97,7 @@ class RegistrationType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\Length(['min' => 2, 'max' => 180]),
+                    new Assert\Length(['min' => 2, 'max' => 35]),
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [
