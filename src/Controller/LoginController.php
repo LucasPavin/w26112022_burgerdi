@@ -36,12 +36,10 @@ class LoginController extends AbstractController
         $user = new User();
         $user->setRoles(['ROLE_USER']);
         $form = $this->createForm(RegistrationType::class, $user);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-
             $manager->persist($user);
             $manager->flush();
 
@@ -49,11 +47,8 @@ class LoginController extends AbstractController
                 'success',
                 'Votre compte a bien été créé.'
             );
-
             return $this->redirectToRoute('security.login');
         } 
-
-
         return $this->render('pages/login/registration.html.twig', [
             'form' => $form->createView()
         ]);

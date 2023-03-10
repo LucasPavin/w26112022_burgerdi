@@ -42,7 +42,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-
             if($hasher->isPasswordValid($user, $form->getData()->getPlainPassword())){
                 $user = $form->getData();
                 $manager->persist($user);
@@ -55,15 +54,12 @@ class UserController extends AbstractController
     
                 return $this->redirectToRoute('user.dashboard', ['id' => $user->getId()]);
             } else {
-
                 $this->addFlash(
                     'Warning',
                     'Le mot de passe est incorrecte.'
                 );
-            }
-            
+            }  
         }
-
         return $this->render('pages/user/edit.html.twig', [
             'form' => $form->createView(),
         ]);

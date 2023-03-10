@@ -45,7 +45,7 @@ class AppFixtures extends Fixture
             $agency->setName($this->faker->name)
                 ->setAddress($this->faker->address)
                 ->setCity($this->faker->city)
-                ->setWebsite($this->faker->name());
+                ->setWebsite("https://gosselink.fr/");
 
             $agencies[] = $agency;
 

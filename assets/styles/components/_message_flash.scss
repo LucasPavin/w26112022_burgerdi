@@ -1,14 +1,15 @@
 
 
 .flash-notice {    
-    width: 300px;
+    width: fit-content;
     margin: auto;
-    padding: 1rem 0; 
+    padding: 1rem; 
     display: flex;
     justify-content: center; 
     align-items: center; 
     border-radius: 10px; 
     margin-bottom: 20px;
+    margin-top: 20px;
     font-family: "Georgia", serif;
 }
 

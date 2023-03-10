@@ -9,8 +9,11 @@
 
 <div class="container">
 
-
-    {# <a href="{{ path('meal.edit', {id: meal.id})}}" class="btn">Modifier</a> #}
+    {% if is_granted('ROLE_ADMIN') %}
+        
+        <a href="{{ path('meal.edit', {id: meal.id})}}" class="btn">Modifier</a>
+        <a href="{{ path('meal.delete', {id: meal.id})}}" class="btn">Supprimer</a>
+    {% endif %}
 
     <div class="grid-meal">
 
@@ -45,12 +48,10 @@
                 </div>
                 <div class="resume-notices openss">
                     {% if meal.average == null %}
-                        <p>Pas de note</p>
+                        <p>Pas de note encore</p>
                     {% else %}
                         <p>Note: {{ meal.average | number_format(1, '.', ',') }}/5</p>
                     {% endif %}
-
-                    <p>Il y a .. commentaire(s)</p>
 
                 </div>
             </div>
@@ -120,7 +121,7 @@
         </div>
 
         {% for message in app.flashes('success') %}
-            <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #37784F; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
+            <div class="flash-notice" style="width: fit-content; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px;">
                 {{ message }}
             </div>
         {% endfor %}

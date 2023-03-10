@@ -21,7 +21,7 @@ class UserType extends AbstractType
                 'placeholder' => 'Nom de famille',
                 'class' => 'form-name-registration',
                 'minlenght' => '2',
-                'max-lenght' => '50'
+                'max-lenght' => '46'
             ],
             'label' => 'Nom',
             'label_attr' => [
@@ -37,7 +37,7 @@ class UserType extends AbstractType
                 'placeholder' => 'Prénom',
                 'class' => 'form-name-registration',
                 'minlenght' => '2',
-                'max-lenght' => '50'
+                'max-lenght' => '46'
             ],
             'label' => 'Prénom',
             'label_attr' => [
@@ -57,12 +57,16 @@ class UserType extends AbstractType
             'label_attr' => [
                 'class' => 'form-label-registration'
             ],
+            'constraints' => [
+                new Assert\NotBlank(),
+                new Assert\Length(['min' => 2, 'max' => 62]),
+            ]
         ])
         ->add('phone', TextType::class, [
             'attr' => [
                 'class' => 'form-name-registration',
-                'minlenght' => '2',
-                'max-lenght' => '50'
+                'minlenght' => '10',
+                'max-lenght' => '15'
             ],
             'label' => 'Téléphone',
             'label_attr' => [
@@ -77,7 +81,7 @@ class UserType extends AbstractType
             'attr' => [
                 'class' => 'form-name-registration',
                 'minlenght' => '2',
-                'max-lenght' => '50',
+                'max-lenght' => '35',
             ],
             'label' => 'Nom de ville',
             'label_attr' => [

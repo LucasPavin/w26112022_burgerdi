@@ -10,6 +10,13 @@
     <div class="container login-block">
         <div class="block-login">
             <div class="connect">
+
+                {% for message in app.flashes('success') %}
+                    <div class="flash-notice" style="width: fit-content; padding: 1rem 3rem;margin-top: 0; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
                 <h2 class="title-connect">Connexion</h2>
 
                 <form action="{{ path('security.login') }}" method="post" name="login">
@@ -26,12 +33,6 @@
                     <div class="section-btn-login">
                         <button type="submit" class="btn">Se connecter</button>
                     </div>
-
-                    {% for message in app.flashes('success') %}
-                        <div class="flash-notice" style="width: 100%; padding: 1rem 3rem; background-color: #00a600d9; display: flex; justify-content: center; align-items: center; border-radius: 0 20px; margin-bottom: 80px;">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
 
                     {% if error %}
                         <div class="alert">

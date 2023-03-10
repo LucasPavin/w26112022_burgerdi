@@ -16,13 +16,13 @@
               form: form
         } only %}
 
+    {% include "components/_message_flash.html.twig" %}
+
     {% if meals.getTotalItemCount > 0 %}
 
         <div class="count">
             <p><span class="bold">{{ meals.getTotalItemCount }} résultat(s)</span> de plat(s) </p>
         </div>
-
-        {% include "components/_message_flash.html.twig" %}
 
         <div class="all__cards">
             {% for meal in meals %}
@@ -64,7 +64,6 @@
     <div class="navigation">
         {{ knp_pagination_render(meals) }}
     </div>
-
 
 </div>
 {% endblock %}

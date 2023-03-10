@@ -49,7 +49,7 @@ class CategoryController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Création de la catégorie !'
+                'Création de la catégorie réussite !'
             );
 
             return $this->redirectToRoute('app_category');

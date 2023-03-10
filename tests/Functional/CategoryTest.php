@@ -33,7 +33,7 @@ class CategoryTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $form = $crawler->filter('form[name=category]')->form([
-            'category[name]' => "La création est réussite",
+            'category[name]' => "La création est réussi",
         ]);
 
         $client->submit($form);
